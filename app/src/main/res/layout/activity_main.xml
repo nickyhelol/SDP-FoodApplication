@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/recipebg" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleTextView"
         android:layout_width="239dp"
         android:layout_height="90dp"
         android:layout_marginBottom="8dp"
@@ -53,6 +53,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0.9"
         android:background="@drawable/button"
+        android:onClick="login"
         android:text="Log In"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,6 +73,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0.9"
         android:background="@drawable/button"
+        android:onClick="signup"
         android:text="Sign Up"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
