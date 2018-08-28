@@ -3,6 +3,9 @@ package com.nickhe.reciperescue;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "foo@example.com:hellohello", "bar@example.com:world"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -344,6 +347,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+
+        /**
+         * finish method
+         */
+        protected void finish(){
+            savePreferences();
+            startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+        }
+
+        /**
+         * savePreferences method
+         */
+        protected void savePreferences(){
+            MainActivity.sharedPreferences = getSharedPreferences(MainActivity.accountPref, Context.MODE_PRIVATE);
+            SharedPreferences.Editor prefEditor = MainActivity.sharedPreferences.edit();
+            prefEditor.putString(MainActivity.emailPref, mEmail);
+            prefEditor.putString(MainActivity.passPref, mPassword);
+            prefEditor.commit();
         }
     }
 }
