@@ -31,7 +31,11 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".SignupActivity"
-            android:label="@string/title_activity_signup"></activity>
+            android:label="@string/title_activity_signup" />
+        <activity
+            android:name=".NavigationDrawer"
+            android:label="@string/title_activity_navigation_drawer" />
+        <activity android:name=".MainMenuActivity"></activity>
     </application>
 
 </manifest>
