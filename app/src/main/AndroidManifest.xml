@@ -32,7 +32,7 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup" />
-        <activity android:name=".MainMenuActivity"></activity>
+        <activity android:name=".MainMenuActivity" />
     </application>
 
 </manifest>

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     {
         startActivity(new Intent(getApplicationContext(), SignupActivity.class));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
