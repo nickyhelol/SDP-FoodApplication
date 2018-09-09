@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:id="@+id/home_navigation"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home"
+        app:showAsAction="always" />
     <item
-        android:id="@+id/MainMenu"
-        android:icon="@drawable/ic_main_menu"
-        android:title="Main Menu" />
+        android:id="@+id/search_navigation"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Searching"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/profile_navigation"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/rankList_navigation"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:title="Rank List"
+        app:showAsAction="always"/>
 </menu>
