@@ -30,8 +30,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class RegisterToFirebaseActivity extends Activity {
+public class RegisterToFirebaseActivity extends AppCompatActivity {
 
 
     private EditText name, password, email,ageOfUser;
@@ -41,6 +43,7 @@ public class RegisterToFirebaseActivity extends Activity {
     private String userName,userPassword,userEmail,userAge;
     //adding firebase storage object
     private FirebaseStorage firebaseStorage;
+    private TextView errorTextView;
 
 
     @Override
@@ -68,7 +71,7 @@ public class RegisterToFirebaseActivity extends Activity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //calling method
-                                //verifyEmail();
+                                verifyEmail();
                                 sendUserDataToDatabase();
                                 //when user registers to the database, it signs in as well in firebase so we need to sign out user
                                 //to prevent from going to other activity than main activity. And the user will be null.
@@ -110,6 +113,7 @@ public class RegisterToFirebaseActivity extends Activity {
         registerButton = (Button) findViewById(R.id.registerButton);
         userLoginView = (TextView) findViewById(R.id.userLoginView);
         ageOfUser= (EditText) findViewById(R.id.updateAgeET);
+        errorTextView= findViewById(R.id.errorDetailsView);
 
 
     }
@@ -124,9 +128,18 @@ public class RegisterToFirebaseActivity extends Activity {
         userAge=ageOfUser.getText().toString();
 
         if(userName.isEmpty() || userPassword.isEmpty() || userEmail.isEmpty() || userAge.isEmpty() ){
+            errorTextView.setText("Please enter all the details");
             Toast.makeText(this,"Please enter all the details",Toast.LENGTH_SHORT).show();
         }
+        else if(!isEmailValid(userName)){
+            errorTextView.setText("Please provide valid email");
+            result=false;
+        }
+        else if(!isPasswordValid(userPassword)){
+            errorTextView.setText("Password must be at least 6 character");
+        }
         else{
+            errorTextView.setText("");
             result=true;
         }
 
@@ -177,15 +190,22 @@ public class RegisterToFirebaseActivity extends Activity {
         databaseReference.setValue(user);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
         }
+        return isValid;
+    }
 
-
-        return super.onOptionsItemSelected(item);
+    public static boolean isPasswordValid(String password){
+        return password.length() >= 6;
     }
 
 

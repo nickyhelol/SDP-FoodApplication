@@ -22,7 +22,7 @@ public class SplashScreenActivity extends Activity {
 
         firebaseAuth= FirebaseAuth.getInstance();
         logoutBtn = (Button) findViewById(R.id.btnLogout);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
