@@ -143,6 +143,7 @@ public class MainLoginActivity extends AppCompatActivity {
                         checkEmailVerification();
                     } else {
                         progressDialog.cancel();
+                        errorInfoView.setText("Wrong user name or password");
                         Toast.makeText(MainLoginActivity.this, "Wrong user name or password", Toast.LENGTH_SHORT).show();
                         counter--;
                         screenInfo.setText("No of attempts remaining: " + counter);
