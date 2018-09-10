@@ -52,8 +52,6 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_to_firebase);
         initializeViews();
 
-
-
         firebaseAuth= FirebaseAuth.getInstance();
         firebaseStorage= FirebaseStorage.getInstance();
 
