@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".RegisterToFirebaseActivity">
 
+
+
     <EditText
         android:id="@+id/updateNameET"
         android:layout_width="wrap_content"
@@ -40,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updateNameET"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintVertical_bias="0.004" />
 
     <EditText
         android:id="@+id/userPasswordField"
@@ -58,24 +60,21 @@
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updateEmailET"
-        app:layout_constraintVertical_bias="0.026" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/registerButton"
         android:layout_width="145dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="REGISTER"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateAgeET"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/userLoginView"
@@ -110,7 +109,22 @@
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userPasswordField"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/errorDetailsView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateAgeET"
+        app:layout_constraintVertical_bias="0.145" />
     ImageView
         android:id="@+id/profileImageView"
         android:layout_width="110dp"

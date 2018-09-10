@@ -5,7 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.MenuItem;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +19,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainLoginActivity extends AppCompatActivity {
 
-    private EditText userName;
+    private EditText userEmail;
     private EditText userPassword;
     private TextView screenInfo;
     private Button loginBtn;
@@ -29,6 +33,9 @@ public class MainLoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private TextView forgotPwView;
+    private TextView errorInfoView;
+
+
 
     @Override
 
@@ -37,11 +44,7 @@ public class MainLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_login);
-
-
         initializeViews();
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         screenInfo.setText("No of attempts remaining: 5");
         firebaseAuth=FirebaseAuth.getInstance();
@@ -51,8 +54,10 @@ public class MainLoginActivity extends AppCompatActivity {
 
         if(user!=null){
             finish();//meaning if there is no user then it will stay at the main activity and have to enter sign in details again.
-            startActivity(new Intent(MainLoginActivity.this,SplashScreenActivity.class));
+            startActivity(new Intent(MainLoginActivity.this,MainMenuActivity.class));
         }
+
+
 
         //providing onclick function for login button
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +66,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
             public void onClick(View view) {
 
-                validate(userName.getText().toString(), userPassword.getText().toString());
+                validate(userEmail.getText().toString(), userPassword.getText().toString());
 
             }
 
@@ -88,7 +93,7 @@ public class MainLoginActivity extends AppCompatActivity {
      * it will show all the views to the screen
      */
     private void initializeViews(){
-        userName = (EditText) findViewById(R.id.userNameField);
+        userEmail = (EditText) findViewById(R.id.userNameField);
 
         userPassword = (EditText) findViewById(R.id.userPasswordField);
 
@@ -97,39 +102,58 @@ public class MainLoginActivity extends AppCompatActivity {
         loginBtn = (Button) findViewById(R.id.loginButton);
         userRegView = (TextView) findViewById(R.id.RegTextView);
         forgotPwView= (TextView) findViewById(R.id.forgotPwTV);
-
+        errorInfoView= findViewById(R.id.infoView);
     }
 
 
     /**
      * This method will validate if the given name and the password are valid and if they are valid then it will let
      * user to enter to new window otherwise it will send error message
-     * @param userName
+     * @param userEmail
      * @param userPassword
      */
 
-    private void validate(String userName, String userPassword) {
-        progressDialog.setMessage("Logging in ");
-        progressDialog.show();
-        firebaseAuth.signInWithEmailAndPassword(userName,userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    progressDialog.dismiss();
+    private void validate(String userEmail, String userPassword) {
 
-                    checkEmailVerification();
-                }
-                else{
-                    progressDialog.cancel();
-                    Toast.makeText(MainLoginActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
-                    counter--;
-                    screenInfo.setText("No of attempts remaining: "+ counter);
-                    if(counter==0){
-                        loginBtn.setEnabled(false);
+        if(userEmail.isEmpty()){
+            errorInfoView.setText("Email address required");
+        }
+
+       else if (!isEmailValid(userEmail)){
+            errorInfoView.setText("Please enter valid email address");
+        }
+        else if(userPassword.isEmpty()){
+            errorInfoView.setText("Password required");
+
+        }
+        else if(!isPasswordValid(userPassword)){
+            errorInfoView.setText("Password must be at least 6 character");
+        }
+        else {
+
+            errorInfoView.setText("");
+            progressDialog.setMessage("Logging in ");
+            progressDialog.show();
+            firebaseAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        progressDialog.dismiss();
+
+                        checkEmailVerification();
+                    } else {
+                        progressDialog.cancel();
+                        Toast.makeText(MainLoginActivity.this, "Wrong user name or password", Toast.LENGTH_SHORT).show();
+                        counter--;
+                        screenInfo.setText("No of attempts remaining: " + counter);
+                        if (counter == 0) {
+                            loginBtn.setEnabled(false);
+                        }
                     }
                 }
-            }
-        });
+
+            });
+        }
     }
 
     /**
@@ -140,28 +164,38 @@ public class MainLoginActivity extends AppCompatActivity {
     private void checkEmailVerification(){
         FirebaseUser firebaseUser= firebaseAuth.getInstance().getCurrentUser();
         Boolean flag= firebaseUser.isEmailVerified();
-        startActivity(new Intent(MainLoginActivity.this, SplashScreenActivity.class));
 
-//        //if email is verified then link this to the second activity
-//        if(flag){
-//            finish();//finishes this main activity and directs it to the second activity.
-//            startActivity(new Intent(MainLoginActivity.this, SplashScreenActivity.class));
-//        }else{//if the email is not verified then send a toast message to user and sign out from the firebase
-//            Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show();
-//            //Need to sign out until user provides the valid email address.
-//            firebaseAuth.signOut();
-//        }
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
+        //if email is verified then link this to the second activity
+        if(flag){
+            finish();//finishes this main activity and directs it to the second activity.
+            startActivity(new Intent(MainLoginActivity.this, MainMenuActivity.class));
+        }else{//if the email is not verified then send a toast message to user and sign out from the firebase
+            Toast.makeText(this, "Please verify your email", Toast.LENGTH_SHORT).show();
+            //Need to sign out until user provides the valid email address.
+            firebaseAuth.signOut();
         }
-
-
-        return super.onOptionsItemSelected(item);
     }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    public static boolean isPasswordValid(String password){
+        return password.length() >= 6;
+    }
+
+
+
 
 }
