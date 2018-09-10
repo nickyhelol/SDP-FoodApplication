@@ -1,0 +1,195 @@
+package com.nickhe.reciperescue;
+
+import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+
+public class RegisterToFirebaseActivity extends Activity {
+
+
+    private EditText name, password, email,ageOfUser;
+    private Button registerButton;
+    private TextView userLoginView;
+    private FirebaseAuth firebaseAuth;
+    private String userName,userPassword,userEmail,userAge;
+    //adding firebase storage object
+    private FirebaseStorage firebaseStorage;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_to_firebase);
+        initializeViews();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseStorage= FirebaseStorage.getInstance();
+
+
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //first we need to validate if user has entered all fields required to register.
+                if(validate()){
+                    //upload data to the database.
+                    String user_email= email.getText().toString().trim();
+                    String user_password= password.getText().toString().trim();
+
+                    firebaseAuth.createUserWithEmailAndPassword(user_email,user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //calling method
+                                //verifyEmail();
+                                sendUserDataToDatabase();
+                                //when user registers to the database, it signs in as well in firebase so we need to sign out user
+                                //to prevent from going to other activity than main activity. And the user will be null.
+                                firebaseAuth.signOut();
+                                Toast.makeText(RegisterToFirebaseActivity.this, "Successfully Registered, Upload completed",Toast.LENGTH_LONG).show();
+                                finish();
+                                startActivity(new Intent(RegisterToFirebaseActivity.this,MainLoginActivity.class));
+                            }
+                            else{
+                                Toast.makeText(RegisterToFirebaseActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+
+        userLoginView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterToFirebaseActivity.this,MainLoginActivity.class));
+            }
+        });
+
+        /**
+         * adding on click listener for the image button so that it can direct user to their gallery to choose pic
+         * so that they can upload it to their profile.
+         */
+
+
+
+    }
+
+    private void initializeViews(){
+        name= (EditText) findViewById(R.id.updateNameET);
+        password = (EditText) findViewById(R.id.userPasswordField);
+        email =(EditText) findViewById(R.id.updateEmailET);
+        registerButton = (Button) findViewById(R.id.registerButton);
+        userLoginView = (TextView) findViewById(R.id.userLoginView);
+        ageOfUser= (EditText) findViewById(R.id.updateAgeET);
+
+
+    }
+    /**
+     * this method will validate if user has entered all fielsd required to register in the database.
+     */
+    private Boolean validate(){
+        Boolean result=false;
+        userName= this.name.getText().toString();
+        userPassword= this.password.getText().toString();
+        userEmail = this.email.getText().toString();
+        userAge=ageOfUser.getText().toString();
+
+        if(userName.isEmpty() || userPassword.isEmpty() || userEmail.isEmpty() || userAge.isEmpty() ){
+            Toast.makeText(this,"Please enter all the details",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            result=true;
+        }
+
+        return result;
+    }
+
+    /**
+     * Verifies the email provided while registering to the database
+     * Sends the verification email to the user to verify the email.
+     */
+    private void verifyEmail(){
+        FirebaseUser user= firebaseAuth.getCurrentUser();//gets current user
+
+        if(user!=null){//
+            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){//if the task is successfull, show the display message
+                        //calling method
+
+                        // sendUserDataToDatabase();
+                        Toast.makeText(RegisterToFirebaseActivity.this, "Successfully Registered, Verification mail sent",Toast.LENGTH_LONG).show();
+                        firebaseAuth.signOut();//once the user has created firebase username and password, user is actually
+                        //signed in into the firebase so we need to sign them out. we don't want user to enter the app without logging
+                        //in into the firebase.
+                        finish();
+                        startActivity(new Intent(RegisterToFirebaseActivity.this,MainLoginActivity.class));
+                    }else{
+                        Toast.makeText(RegisterToFirebaseActivity.this, "Verification not sent",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * This method creates the database reference per user and sends it to the firebase database.
+     */
+    private void sendUserDataToDatabase(){
+        FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference= firebaseDatabase.getReference(firebaseAuth.getUid());//getting the UID of the user from the firebase console.
+
+        //Creating user object
+        User user= new User(userName, userEmail, userAge);
+
+        //since the database reference need an object of class, we created the object of user class, and assigned the value
+        //as per the constructor to pass into the database reference.
+        databaseReference.setValue(user);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+}

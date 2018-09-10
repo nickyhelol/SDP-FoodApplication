@@ -33,6 +33,13 @@
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup" />
         <activity android:name=".MainMenuActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".MainLoginActivity" />
+        <activity android:name=".PasswordUpdate" />
+        <activity android:name=".RegisterToFirebaseActivity" />
+        <activity android:name=".SplashScreenActivity" />
+        <activity android:name=".UpdateUserProfileActivity" />
+        <activity android:name=".UserProfileActivity" />
     </application>
 
 </manifest>

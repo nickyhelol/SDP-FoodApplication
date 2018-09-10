@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "319694527863",
+    "firebase_url": "https://reciperescue-71670.firebaseio.com",
+    "project_id": "reciperescue-71670",
+    "storage_bucket": "reciperescue-71670.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319694527863:android:55332a1f0195e67b",
+        "android_client_info": {
+          "package_name": "com.nickhe.reciperescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319694527863-2bfu9fj58pst2dbp3l1g3lim18708rij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nickhe.reciperescue",
+            "certificate_hash": "0c0e030b467b562ae35ef969326f2e2b0c6fbffc"
+          }
+        },
+        {
+          "client_id": "319694527863-kckdeo10retvg535h85qr39eq328s7ob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxNP-OE5zDm_pxkQAm_XMM4mQXd6QXkrg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319694527863-kckdeo10retvg535h85qr39eq328s7ob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
