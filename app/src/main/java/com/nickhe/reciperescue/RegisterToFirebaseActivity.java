@@ -49,8 +49,6 @@ public class RegisterToFirebaseActivity extends Activity {
         setContentView(R.layout.activity_register_to_firebase);
         initializeViews();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
         firebaseAuth= FirebaseAuth.getInstance();
         firebaseStorage= FirebaseStorage.getInstance();
 

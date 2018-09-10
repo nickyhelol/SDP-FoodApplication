@@ -41,7 +41,6 @@ public class MainLoginActivity extends AppCompatActivity {
 
         initializeViews();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         screenInfo.setText("No of attempts remaining: 5");
         firebaseAuth=FirebaseAuth.getInstance();
