@@ -131,9 +131,9 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
             errorTextView.setText("Please enter all the details");
             Toast.makeText(this,"Please enter all the details",Toast.LENGTH_SHORT).show();
         }
-        else if(!isEmailValid(userName)){
+        else if(!(isEmailValid(userEmail))){
             errorTextView.setText("Please provide valid email");
-            result=false;
+
         }
         else if(!isPasswordValid(userPassword)){
             errorTextView.setText("Password must be at least 6 character");
