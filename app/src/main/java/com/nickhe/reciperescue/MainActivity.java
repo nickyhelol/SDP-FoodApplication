@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view)
     {
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
     }
 
     public void signup(View view)
     {
-        startActivity(new Intent(getApplicationContext(), SignupActivity.class));
+        startActivity(new Intent(getApplicationContext(), RegisterToFirebaseActivity.class));
     }
 
     @Override
