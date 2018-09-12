@@ -28,6 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
         firebaseAuth= FirebaseAuth.getInstance();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -83,7 +84,8 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -92,15 +94,8 @@ public class MainMenuActivity extends AppCompatActivity {
             case R.id.logoutMenu:
                 Logout();
                 break;
-            //This will direct to the userProfile activity where we can see the attributes(name, age, and email of the user
-            //retrieved from the firebase database. This means when user clicks to profile menu item then it will directs to another screen.
-            case R.id.ProfileMenu:
-                startActivity(new Intent(MainMenuActivity.this, UserProfileActivity.class));
-                break;
-
-
-
         }
+
         return super.onOptionsItemSelected(item);
     }
 
