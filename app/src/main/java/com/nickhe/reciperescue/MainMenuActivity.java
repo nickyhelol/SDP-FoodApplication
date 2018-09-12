@@ -18,6 +18,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private SearchFragment searchFragment;
     private ProfileFragment profileFragment;
     private RankListFragment rankListFragment;
+    private RecipeListFragment recipeListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class MainMenuActivity extends AppCompatActivity {
         searchFragment = new SearchFragment();
         profileFragment = new ProfileFragment();
         rankListFragment = new RankListFragment();
+        recipeListFragment = new RecipeListFragment();
+
 
         setFragment(homeFragment);
 
@@ -59,8 +62,7 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    public void setFragment(Fragment fragment)
-    {
+    public void setFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, fragment).commit();
     }
 
