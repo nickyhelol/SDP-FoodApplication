@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class SearchFragment extends Fragment {
     private ArrayList<String> recipeIngredientsFilter;
     private int recipeMinRatingFilter;
     private ArrayList<String> recipeTagsFilter;
+    private Button searchButton;
+    protected View searchView;
 
     public SearchFragment() {
         recipeNameFilter = "";
@@ -36,14 +39,29 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        super.onCreateView(inflater, container, savedInstanceState);
+        this.searchView = view;
+        return view;
     }
 
-    public void searchRecipe() {
-        TextView recipeNameFilterInput = getView().findViewById(R.id.recipeNameFilterTextInput);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        searchButton = searchView.findViewById(R.id.button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                searchRecipe(v);
+            }
+        });
+    }
+
+
+    public void searchRecipe(View view) {
+        TextView recipeNameFilterInput = this.searchView.findViewById(R.id.recipeNameFilterTextInput);
         recipeNameFilter = recipeNameFilterInput.getText().toString();
-        Toast.makeText(getContext(), recipeNameFilter, Toast.LENGTH_SHORT);
+        Toast.makeText(getActivity(), recipeNameFilter, Toast.LENGTH_SHORT).show();
     }
 
 
