@@ -23,6 +23,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private ProfileFragment profileFragment;
     private RankListFragment rankListFragment;
     private FirebaseAuth firebaseAuth;
+    private RecipeListFragment recipeListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainMenuActivity extends AppCompatActivity {
         searchFragment = new SearchFragment();
         profileFragment = new ProfileFragment();
         rankListFragment = new RankListFragment();
+        recipeListFragment = new RecipeListFragment();
 
         setFragment(homeFragment);
 
