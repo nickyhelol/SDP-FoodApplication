@@ -5,23 +5,8 @@
     <item
         android:id="@+id/logoutMenu"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        app:showAsAction="withText"
         android:title="Logout">
-
-    </item>
-
-    <item
-        android:id="@+id/ProfileMenu"
-        android:orderInCategory="200"
-        android:showAsAction="never"
-        android:title="Profile">
-
-    </item>
-    <item
-        android:id="@+id/refreshMenu"
-        android:orderInCategory="300"
-        android:showAsAction="never"
-        android:title="refresh">
 
     </item>
 

@@ -46,7 +46,7 @@ public class MainLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_login);
         initializeViews();
 
-        screenInfo.setText("No of attempts remaining: 5");
+        screenInfo.setText("No. of attempts remaining: 5");
         firebaseAuth=FirebaseAuth.getInstance();
         progressDialog= new ProgressDialog(this);
 
