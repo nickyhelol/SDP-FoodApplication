@@ -15,4 +15,5 @@
         android:gravity="center"
         android:text="@string/title_home"
         android:textSize="24sp" />
+
 </FrameLayout>

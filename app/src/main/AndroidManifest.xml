@@ -31,7 +31,6 @@
         <activity android:name=".MainLoginActivity" />
         <activity android:name=".PasswordUpdate" />
         <activity android:name=".RegisterToFirebaseActivity" />
-        <activity android:name=".SplashScreenActivity" />
         <activity android:name=".UpdateUserProfileActivity" />
         <activity android:name=".UserProfileActivity" />
     </application>
