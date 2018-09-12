@@ -28,8 +28,6 @@ public class ForgotPasswordActivity extends Activity {
         setContentView(R.layout.activity_forgot_password);
         setUpView();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
         firebaseAuth= FirebaseAuth.getInstance();//intantiating the firebase object
         //setting on click listener to the password reset button.
         pwResetBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +64,4 @@ public class ForgotPasswordActivity extends Activity {
         pwResetBtn= (Button) findViewById(R.id.passwordResetBtn);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
 }
