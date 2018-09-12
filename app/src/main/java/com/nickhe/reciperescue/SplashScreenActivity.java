@@ -1,7 +1,6 @@
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,7 +39,7 @@ public class SplashScreenActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menus, menu);
         return true;
     }
 
@@ -51,7 +50,7 @@ public class SplashScreenActivity extends Activity {
                 Logout();
                 break;
             //This will direct to the userProfile activity where we can see the attributes(name, age, and email of the user
-            //retrieved from the firebase database. This means when user clicks to profile menu item then it will directs to another screen.
+            //retrieved from the firebase database. This means when user clicks to profile menus item then it will directs to another screen.
             case R.id.ProfileMenu:
                 startActivity(new Intent(SplashScreenActivity.this, UserProfileActivity.class));
                 break;

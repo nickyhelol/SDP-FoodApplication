@@ -80,6 +80,7 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
                                 finish();
                                 startActivity(new Intent(RegisterToFirebaseActivity.this,MainLoginActivity.class));
                             }
+
                             else{
                                 Toast.makeText(RegisterToFirebaseActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                             }
@@ -101,8 +102,6 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
          * adding on click listener for the image button so that it can direct user to their gallery to choose pic
          * so that they can upload it to their profile.
          */
-
-
 
     }
 
@@ -160,7 +159,7 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
                     if(task.isSuccessful()){//if the task is successfull, show the display message
                         //calling method
 
-                        // sendUserDataToDatabase();
+                        //sendUserDataToDatabase();
                         Toast.makeText(RegisterToFirebaseActivity.this, "Successfully Registered, Verification mail sent",Toast.LENGTH_LONG).show();
                         firebaseAuth.signOut();//once the user has created firebase username and password, user is actually
                         //signed in into the firebase so we need to sign them out. we don't want user to enter the app without logging
