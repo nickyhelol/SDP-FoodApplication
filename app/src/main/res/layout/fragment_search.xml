@@ -9,11 +9,42 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:id="@+id/textView4"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="212dp"
-        android:gravity="center"
-        android:text="Searching"
-        android:textSize="24sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/recipeNameFilterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="32dp"
+            android:text="Recipe Name:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/recipeNameFilterTextInput"
+            android:layout_width="211dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/recipeNameFilterText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="48dp"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeNameFilterTextInput" />
+    </android.support.constraint.ConstraintLayout>
+
 </FrameLayout>
