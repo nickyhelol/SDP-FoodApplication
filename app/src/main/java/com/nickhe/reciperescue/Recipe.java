@@ -5,7 +5,7 @@ public class Recipe {
     private String recipeDescription;
     private String[] recipeIngredients;
     private String recipePublisher;
-    //   private Image[] recImageArray;
+    //   private Image[] recipeImageArray;
     private String recipeInstruction;
     private Rating recipeRating;
 

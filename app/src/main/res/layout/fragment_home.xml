@@ -8,12 +8,17 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+   <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="204dp"
+        android:layout_height="136dp"
         android:gravity="center"
         android:text="@string/title_home"
         android:textSize="24sp" />
+    <ListView
+        android:id="@+id/homeListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"/>
 
 </FrameLayout>
