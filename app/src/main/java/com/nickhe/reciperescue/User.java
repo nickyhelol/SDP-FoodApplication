@@ -1,10 +1,17 @@
 package com.nickhe.reciperescue;
 
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 public class User {
 
-    public String age;
-    public String email;
-    public String name;
+    private String age;
+    private String email;
+    private String name;
+    private String description;        //New added feature
+    private Bitmap profileImage;
+    private ArrayList<Recipe> personalRepo;
 
     public User(){
 
@@ -38,5 +45,29 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Bitmap getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Bitmap profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public ArrayList<Recipe> getPersonalRepo() {
+        return personalRepo;
+    }
+
+    public void setPersonalRepo(ArrayList<Recipe> personalRepo) {
+        this.personalRepo = personalRepo;
     }
 }
