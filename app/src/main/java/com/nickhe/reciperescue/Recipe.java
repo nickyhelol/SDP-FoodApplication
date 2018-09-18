@@ -7,8 +7,9 @@ public class Recipe implements Serializable {
     private String recipeDescription;
     private String[] recipeIngredients;
     private String recipePublisher;
-    //   private Image[] recImageArray;
-    private String recipeInstruction;
+    private String time;
+    private String calories;
+    private String[] recipeInstruction;
     private Rating recipeRating;
 
 
@@ -44,11 +45,11 @@ public class Recipe implements Serializable {
         this.recipePublisher = recipePublisher;
     }
 
-    public String getRecipeInstruction() {
+    public String[] getRecipeInstruction() {
         return recipeInstruction;
     }
 
-    public void setRecipeInstruction(String recipeInstruction) {
+    public void setRecipeInstruction(String[] recipeInstruction) {
         this.recipeInstruction = recipeInstruction;
     }
 
@@ -58,5 +59,21 @@ public class Recipe implements Serializable {
 
     public void setRecipeRating(Rating recipeRating) {
         this.recipeRating = recipeRating;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getCalories() {
+        return calories;
+    }
+
+    public void setCalories(String calories) {
+        this.calories = calories;
     }
 }
