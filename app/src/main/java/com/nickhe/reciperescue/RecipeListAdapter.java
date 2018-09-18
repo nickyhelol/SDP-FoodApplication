@@ -1,6 +1,7 @@
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,16 +13,17 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecipeListAdapter extends ArrayAdapter<String>
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecipeListAdapter extends ArrayAdapter<Recipe>
 {
-    private String[] titles;
-    private int[] images;
+    private List<Recipe> recipes;
     private Activity context;
 
-    public RecipeListAdapter(Activity context, String[] titles, int[] images) {
-        super(context, R.layout.recipe_row, titles);
-        this.titles = titles;
-        this.images = images;
+    public RecipeListAdapter(Activity context, List<Recipe> recipes) {
+        super(context, R.layout.recipe_row, R.id.recipeTextView, recipes);
+        this.recipes = recipes;
         this.context = context;
     }
 
@@ -42,8 +44,9 @@ public class RecipeListAdapter extends ArrayAdapter<String>
             viewHolder = (ViewHolder)row.getTag();
         }
 
-        viewHolder.imageView.setImageResource(images[position]);
-        viewHolder.textView.setText(titles[position]);
+        viewHolder.imageView.setImageBitmap(recipes.get(position).getRecipeImage());
+        System.out.println("Set imageBitmap success!");
+        viewHolder.textView.setText(recipes.get(position).getRecipeTitle());
 
         return row;
     }

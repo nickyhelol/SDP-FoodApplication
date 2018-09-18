@@ -10,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-
 public class ProfileFragment extends Fragment {
 
     ListView listView;
-    String[] titles = {"Kebab", "Chicken Salad", "Grilled Salmon", "Grilled Chicken"};
-    int[] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3, R.drawable.food4};
+    FakeRecipeRepository fakeRecipeRepository;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -36,11 +34,17 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.profile_recipeList);
-        RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), titles, images);
+        fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
+        RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
     }
 
+    /**
+     * Make sure the listView will be set by the correct height based on
+     * the number of the items it has.
+     * @param listView
+     */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)

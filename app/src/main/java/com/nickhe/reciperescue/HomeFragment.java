@@ -1,6 +1,8 @@
 package com.nickhe.reciperescue;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,11 +21,7 @@ import android.widget.ListView;
 public class HomeFragment extends Fragment {
 
     ListView listView;
-    String[] titles = {"Kebab", "Chicken Salad", "Grilled Salmon", "Grilled Chicken", "Curry Egg",
-            "Pan Pizza", "Thar Fried Rice", "Vegetarian Rice"};
-    int[] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3, R.drawable.food4
-            , R.drawable.food5, R.drawable.food6, R.drawable.food7, R.drawable.food8};
-
+    FakeRecipeRepository fakeRecipeRepository;
     public HomeFragment() {
 
     }
@@ -41,11 +39,17 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.home_recipeList);
-        RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), titles, images);
+        fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
+        RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
     }
 
+    /**
+     * Make sure the listView will be set by the correct height based on
+     * the number of the items it has.
+     * @param listView
+     */
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
