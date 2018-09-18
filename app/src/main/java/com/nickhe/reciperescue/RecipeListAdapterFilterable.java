@@ -1,3 +1,4 @@
+/*
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
@@ -17,14 +18,16 @@ public class RecipeListAdapterFilterable extends RecipeListAdapter implements Fi
 
     private class recipeNameFilter extends Filter {
 
-        /**
+*
          * TODO WRITE COMMENT
-         */
-        /**
+
+
+*
          *
          * @param constraint Text to look for
          * @return
-         */
+
+
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             String nameFilter = constraint.toString().toLowerCase();
@@ -48,9 +51,10 @@ public class RecipeListAdapterFilterable extends RecipeListAdapter implements Fi
             return recipeResults;
         }
 
-        /**
+*
          * TODO WRITE COMMENT
-         */
+
+
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             filteredRecipes = (ArrayList<Recipe>) results.values;
@@ -58,11 +62,14 @@ public class RecipeListAdapterFilterable extends RecipeListAdapter implements Fi
         }
     }
 
-    /**
+*
      * TODO WRITE COMMENT
-     */
-    public RecipeListAdapterFilterable(Activity context, String[] titles, int[] images) {
+
+
+public RecipeListAdapterFilterable(Activity context, String[] titles, int[] images) {
         super(context, titles, images);
         mInflater = LayoutInflater.from(context);
     }
+
 }
+*/
