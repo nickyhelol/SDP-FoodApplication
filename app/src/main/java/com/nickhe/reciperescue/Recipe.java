@@ -1,6 +1,8 @@
 package com.nickhe.reciperescue;
 
-public class Recipe {
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
     private String recipeTitle;
     private String recipeDescription;
     private String[] recipeIngredients;

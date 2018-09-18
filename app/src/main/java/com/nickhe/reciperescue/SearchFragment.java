@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +29,12 @@ public class SearchFragment extends Fragment {
     private Button searchButton;
     private Button addIngredientsButton;
     private int numberOfIngredients;
+    private SearchView recipeSearchView;
     protected View searchView;
 
+    /**
+     * TODO WRITE COMMENT
+     */
     public SearchFragment() {
         recipeNameFilter = "";
         recipeIngredientsFilter = new ArrayList<>();
@@ -39,6 +44,9 @@ public class SearchFragment extends Fragment {
     }
 
 
+    /**
+     * TODO WRITE COMMENT
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +58,11 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    /**
+     *
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         searchButton = searchView.findViewById(R.id.searchButton);
@@ -65,20 +78,42 @@ public class SearchFragment extends Fragment {
                 addIngredients(v);
             }
         });
+        recipeSearchView = searchView.findViewById(R.id.recipeSearchView);
+        recipeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
+
+    /**
+     * TODO WRITE COMMENT
+     */
+    public void searchRecipeName(View view) {
+
+    }
 
     /**
      * Dummy function for now, displays the recipe name
      * @param view
      */
     public void searchRecipe(View view) {
+        LinearLayout linearLayout = searchView.findViewById(R.id.ingredientsLinearLayout);
+        for (int i = 0; i < linearLayout.getChildCount(); ++i) {
 
+        }
     }
 
     /**
      * Adds an extra TextView for additional ingredients.
-     * @param view
+     * @param view The view of the fragment
      */
     public void addIngredients(View view) {
         LinearLayout layout = this.searchView.findViewById(R.id.ingredientsLinearLayout);
