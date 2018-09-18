@@ -1,14 +1,42 @@
 package com.nickhe.reciperescue;
 
-public class Recipe {
+import android.graphics.Bitmap;
+
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
+
     private String recipeTitle;
-    private String recipeDescription;
     private String[] recipeIngredients;
     private String recipePublisher;
+<<<<<<< HEAD
     //   private Image[] recipeImageArray;
     private String recipeInstruction;
+=======
+    private String time;
+    private String calories;
+    private String[] recipeInstruction;
+>>>>>>> master
     private Rating recipeRating;
+    private Bitmap recipeImage;
 
+    public Recipe(String recipeTitle, String[] recipeIngredients, String recipePublisher, String time, String calories, String[] recipeInstruction, Bitmap recipeImage) {
+        this.recipeTitle = recipeTitle;
+        this.recipeIngredients = recipeIngredients;
+        this.recipePublisher = recipePublisher;
+        this.time = time;
+        this.calories = calories;
+        this.recipeInstruction = recipeInstruction;
+        this.recipeImage = recipeImage;
+    }
+
+    public Bitmap getRecipeImage() {
+        return recipeImage;
+    }
+
+    public void setRecipeImage(Bitmap recipeImage) {
+        this.recipeImage = recipeImage;
+    }
 
     public String getRecipeTitle() {
         return recipeTitle;
@@ -16,14 +44,6 @@ public class Recipe {
 
     public void setRecipeTitle(String recipeTitle) {
         this.recipeTitle = recipeTitle;
-    }
-
-    public String getRecipeDescription() {
-        return recipeDescription;
-    }
-
-    public void setRecipeDescription(String recipeDescription) {
-        this.recipeDescription = recipeDescription;
     }
 
     public String[] getRecipeIngredients() {
@@ -42,11 +62,11 @@ public class Recipe {
         this.recipePublisher = recipePublisher;
     }
 
-    public String getRecipeInstruction() {
+    public String[] getRecipeInstruction() {
         return recipeInstruction;
     }
 
-    public void setRecipeInstruction(String recipeInstruction) {
+    public void setRecipeInstruction(String[] recipeInstruction) {
         this.recipeInstruction = recipeInstruction;
     }
 
@@ -56,5 +76,21 @@ public class Recipe {
 
     public void setRecipeRating(Rating recipeRating) {
         this.recipeRating = recipeRating;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getCalories() {
+        return calories;
+    }
+
+    public void setCalories(String calories) {
+        this.calories = calories;
     }
 }
