@@ -1,6 +1,7 @@
 package com.nickhe.reciperescue;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -21,7 +23,8 @@ import android.widget.ListView;
 public class HomeFragment extends Fragment {
 
     ListView listView;
-    FakeRecipeRepository fakeRecipeRepository;
+    static FakeRecipeRepository fakeRecipeRepository;
+
     public HomeFragment() {
 
     }
@@ -43,6 +46,18 @@ public class HomeFragment extends Fragment {
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getActivity(), RecipeViewActivity.class);
+
+                intent.putExtra("position", position);
+
+                startActivity(intent);
+            }
+        });
     }
 
     /**
