@@ -9,14 +9,9 @@ public class Recipe implements Serializable {
     private String recipeTitle;
     private String[] recipeIngredients;
     private String recipePublisher;
-//<<<<<<< HEAD
-    //   private Image[] recipeImageArray;
-  //  private String recipeInstruction;
-//=======
     private String time;
     private String calories;
     private String[] recipeInstruction;
-//>>>>>>> master
     private Rating recipeRating;
     private Bitmap recipeImage;
 

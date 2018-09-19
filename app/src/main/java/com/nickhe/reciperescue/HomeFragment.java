@@ -11,16 +11,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//HEAD
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import android.widget.ListAdapter;
 import android.widget.ListView;
-//>>>>>>> master
 
 
 
@@ -30,7 +23,8 @@ import android.widget.ListView;
 public class HomeFragment extends Fragment {
 
     ListView listView;
-    FakeRecipeRepository fakeRecipeRepository;
+    static FakeRecipeRepository fakeRecipeRepository;
+
     public HomeFragment() {
 
     }
@@ -47,14 +41,23 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         listView = view.findViewById(R.id.home_recipeList);
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Intent intent = new Intent(getActivity(), RecipeViewActivity.class);
+
+                intent.putExtra("position", position);
+
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
      * the number of the items it has.
      * @param listView
      */
-    public void setListViewHeightBasedOnChildren(ListView listView) {
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
             return;
@@ -81,17 +84,5 @@ public class HomeFragment extends Fragment {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch(position){
-                    case 0:
-                        Intent intent = new Intent(getActivity(), ViewRecipe.class);
-                        intent.putExtra("Recipe_Object", fakeRecipeRepository.getFakeRepo().get(position));
-                }
-            }
-        });
-        
     }
 }
