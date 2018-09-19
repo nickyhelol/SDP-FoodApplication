@@ -1,32 +1,66 @@
-/*
+
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeListAdapterFilterable extends RecipeListAdapter implements Filterable {
+public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
 
-    private LayoutInflater mInflater;
     private List<Recipe> originalRecipes;
     private List<Recipe> filteredRecipes;
+    private RecipeNameFilter recipeNameFilter;
 
-    private class recipeNameFilter extends Filter {
+    public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
+        originalRecipes = recipes;
+        filteredRecipes = recipes;
+        recipeNameFilter = new RecipeNameFilter();
 
-*
-         * TODO WRITE COMMENT
+    }
+
+    public Filter getNameFilter() {
+        return recipeNameFilter;
+    }
 
 
-*
-         *
-         * @param constraint Text to look for
-         * @return
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recipe_row, parent, false);
 
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ViewHolder viewHolder = (ViewHolder) holder;
+        Recipe recipe = filteredRecipes.get(position);
+        viewHolder.textView.setText(recipe.getRecipeTitle());
+        viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+    }
+
+    @Override
+    public int getItemCount() {
+        return filteredRecipes.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return getNameFilter();
+    }
+
+    private class RecipeNameFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -51,9 +85,6 @@ public class RecipeListAdapterFilterable extends RecipeListAdapter implements Fi
             return recipeResults;
         }
 
-*
-         * TODO WRITE COMMENT
-
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
@@ -62,14 +93,16 @@ public class RecipeListAdapterFilterable extends RecipeListAdapter implements Fi
         }
     }
 
-*
-     * TODO WRITE COMMENT
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+        ImageView imageView;
 
-
-public RecipeListAdapterFilterable(Activity context, String[] titles, int[] images) {
-        super(context, titles, images);
-        mInflater = LayoutInflater.from(context);
+        public ViewHolder(View view) {
+            super(view);
+            textView = view.findViewById(R.id.recipeTextView);
+            imageView = view.findViewById(R.id.recipeImageView);
+        }
     }
 
 }
-*/
+
