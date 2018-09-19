@@ -32,6 +32,7 @@ public class SearchFragment extends Fragment {
     private SearchView recipeSearchView;
     protected View searchView;
 
+
     /**
      * TODO WRITE COMMENT
      */
@@ -59,7 +60,6 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     *
      * @param view
      * @param savedInstanceState
      */
@@ -82,7 +82,11 @@ public class SearchFragment extends Fragment {
         recipeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                if (searchRecipeName(query)) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             @Override
@@ -96,12 +100,20 @@ public class SearchFragment extends Fragment {
     /**
      * TODO WRITE COMMENT
      */
-    public void searchRecipeName(View view) {
+    public boolean searchRecipeName(String query) {
+        Bundle recipeNameBundle = new Bundle();
+        recipeNameBundle.putString("Type", "RecipeName");
+        recipeNameBundle.putString("Name", query);
+        RecipeListFragment recipeListFragment = new RecipeListFragment();
+        recipeListFragment.setArguments(recipeNameBundle);
+        getFragmentManager().beginTransaction().replace(R.id.contentLayout, recipeListFragment).commit();
 
+        return true;
     }
 
     /**
      * Dummy function for now, displays the recipe name
+     *
      * @param view
      */
     public void searchRecipe(View view) {
@@ -113,6 +125,7 @@ public class SearchFragment extends Fragment {
 
     /**
      * Adds an extra TextView for additional ingredients.
+     *
      * @param view The view of the fragment
      */
     public void addIngredients(View view) {
@@ -123,10 +136,10 @@ public class SearchFragment extends Fragment {
         nextIngredient.setTextSize(14);
         nextIngredient.setText("Additional ingredient");
         nextIngredient.setEms(10);
-        p.setMargins(0,10,0,0);
+        p.setMargins(0, 10, 0, 0);
         p.setMarginStart(80);
         p.setMarginEnd(80);
-        nextIngredient.setId(numberOfIngredients+1);
+        nextIngredient.setId(numberOfIngredients + 1);
         layout.addView(nextIngredient);
         ++numberOfIngredients;
     }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>
 {
     private List<Recipe> recipes;
     private Activity context;
+
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
 
     public RecipeListAdapter(Activity context, List<Recipe> recipes) {
         super(context, R.layout.recipe_row, R.id.recipeTextView, recipes);
