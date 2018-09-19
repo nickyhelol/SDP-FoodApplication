@@ -1,6 +1,7 @@
 package com.nickhe.reciperescue;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,15 +11,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
+//HEAD
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-=======
+
 import android.widget.ListAdapter;
 import android.widget.ListView;
->>>>>>> master
+//>>>>>>> master
 
 
 
@@ -45,40 +47,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-<<<<<<< HEAD
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        String [] menuItems = {
-                "Carbonara",
-                "Spaghetti",
-                "Mac and cheese",
-                "Steak",
-                "Bolognese",
-                "Pizza",
-                "Calzone",
-                "Fried rice",
-                "Chow mein"};
-
-        ListView listView = (ListView) view.findViewById(R.id.homeListView);
-
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                R.layout.listview_layout,
-                R.id.recipeName,
-                menuItems
-                //WE can change the 4th argument to be taken from the DB
-        );
-
-        listView.setAdapter(listViewAdapter);
-
-        return view;
-=======
         listView = view.findViewById(R.id.home_recipeList);
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
->>>>>>> master
+
+
     }
 
     /**
@@ -86,7 +62,7 @@ public class HomeFragment extends Fragment {
      * the number of the items it has.
      * @param listView
      */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
+    public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
             return;
@@ -105,5 +81,17 @@ public class HomeFragment extends Fragment {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position){
+                    case 0:
+                        Intent intent = new Intent(getActivity(), ViewRecipe.class);
+                        intent.putExtra("Recipe_Object", fakeRecipeRepository.getFakeRepo().get(position));
+                }
+            }
+        });
+        
     }
 }
