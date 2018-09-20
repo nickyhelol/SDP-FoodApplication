@@ -2,6 +2,8 @@
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
@@ -39,7 +40,6 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         return recipeNameFilter;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,11 +50,21 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        Recipe recipe = filteredRecipes.get(position);
+        final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
         viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RecipeViewActivity.class);
+
+                intent.putExtra("id", recipe.getId());
+
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
