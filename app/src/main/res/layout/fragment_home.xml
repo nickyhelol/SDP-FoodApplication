@@ -6,8 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+<<<<<<< HEAD
     <ScrollView
         android:layout_width="match_parent"
+=======
+   <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="136dp"
+        android:gravity="center"
+        android:text="@string/title_home"
+        android:textSize="24sp" />
+    <ListView
+        android:id="@+id/homeListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
         android:layout_height="match_parent"
         android:fillViewport="true">
 

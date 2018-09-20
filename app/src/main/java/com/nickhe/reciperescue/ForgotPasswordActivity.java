@@ -29,10 +29,13 @@ public class ForgotPasswordActivity extends Activity {
         setUpView();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
 >>>>>>> bfedaa50f73ef2bc651c5882b1994205eb3469a9
+=======
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
         firebaseAuth= FirebaseAuth.getInstance();//intantiating the firebase object
         //setting on click listener to the password reset button.
         pwResetBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,5 +74,8 @@ public class ForgotPasswordActivity extends Activity {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> bfedaa50f73ef2bc651c5882b1994205eb3469a9
+=======
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
 }

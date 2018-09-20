@@ -3,7 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
+<<<<<<< HEAD
     android:layout_height="match_parent">
+=======
+    android:layout_height="wrap_content">
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +22,11 @@
         <TextView
             android:id="@+id/recipeTextView"
             android:layout_width="188dp"
+<<<<<<< HEAD
             android:layout_height="30dp"
+=======
+            android:layout_height="40dp"
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="19dp"

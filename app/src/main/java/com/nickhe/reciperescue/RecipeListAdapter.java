@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+<<<<<<< HEAD
+=======
+import android.text.Layout;
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,13 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>
     private List<Recipe> recipes;
     private Activity context;
 
+<<<<<<< HEAD
+=======
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+>>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
     public RecipeListAdapter(Activity context, List<Recipe> recipes) {
         super(context, R.layout.recipe_row, R.id.recipeTextView, recipes);
         this.recipes = recipes;
