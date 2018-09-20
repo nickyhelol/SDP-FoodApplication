@@ -16,27 +16,26 @@ import java.util.ArrayList;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A Fragment subclass responsible for the searching methods of the Recipe Rescue application.
+ * Links to RecipeListFragment for display while filtering data goes to RecipeListAdapterFilterable
+ * for filtering.
  */
 public class SearchFragment extends Fragment {
 
-    private String recipeNameFilter;
-    private ArrayList<String> recipeIngredientsFilter;
+    private View searchView;
     private int recipeMinRatingFilter;
     private ArrayList<String> recipeTagsFilter;
     private Button searchButton;
     private Button addIngredientsButton;
     private int numberOfIngredients;
     private SearchView recipeSearchView;
-    protected View searchView;
 
 
     /**
-     * TODO WRITE COMMENT
+     * The constructor for SearchFragment fragment. Initialises the variables, notably the numberOfIngredients
+     * variable to use with the addIngredients method.
      */
     public SearchFragment() {
-        recipeNameFilter = "";
-        recipeIngredientsFilter = new ArrayList<>();
         recipeMinRatingFilter = 0;
         recipeTagsFilter = new ArrayList<>();
         numberOfIngredients = 1;
@@ -44,7 +43,10 @@ public class SearchFragment extends Fragment {
 
 
     /**
-     * TODO WRITE COMMENT
+     * Overrides the onCreateView method from superclass. Initialises searchView to the view of the
+     * fragment.
+     *
+     * @param inflater The LayoutInflater of the search fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,7 @@ public class SearchFragment extends Fragment {
     }
 
     /**
+     * TODO
      * @param view
      * @param savedInstanceState
      */
@@ -96,7 +99,10 @@ public class SearchFragment extends Fragment {
 
 
     /**
-     * TODO WRITE COMMENT
+     * The searchRecipeName method searches the repository for recipes whose recipe titles are similar
+     * to the entered query.
+     *
+     * @param query The query for the recipe name
      */
     public boolean searchRecipeName(String query) {
         Bundle recipeNameBundle = new Bundle();
@@ -110,13 +116,15 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * Dummy function for now, displays the recipe name
+     * The searchRecipeIngredients method searches the repository for recipes that contain all the
+     * ingredients specified.
+     * Implementation wise, it is linked to the Search button below the ingredients.
      *
-     * @param view
+     * @param view The view of the searching activity / fragment
      */
     public void searchRecipeIngredients(View view) {
         Bundle recipeIngredientsBundle = new Bundle();
-        String ingredients ="";
+        String ingredients = "";
         recipeIngredientsBundle.putString("Type", "Ingredients");
         LinearLayout linearLayout = searchView.findViewById(R.id.ingredientsLinearLayout);
         for (int i = 1; i < linearLayout.getChildCount(); ++i) {
@@ -132,9 +140,11 @@ public class SearchFragment extends Fragment {
     }
 
     /**
-     * Adds an extra TextView for additional ingredients.
+     * The addIngredients method adds a new EditText field under the last ingredient EditText field.
+     * This method takes the Layout of the ingredients field and adds another into it, with the id
+     * dynamically assigned.
      *
-     * @param view The view of the fragment
+     * @param view The view of the search fragment
      */
     public void addIngredients(View view) {
         LinearLayout layout = this.searchView.findViewById(R.id.ingredientsLinearLayout);
@@ -152,4 +162,7 @@ public class SearchFragment extends Fragment {
         ++numberOfIngredients;
     }
 
+    /**
+     * TODO Add rating filter - Sprint 2
+     */
 }

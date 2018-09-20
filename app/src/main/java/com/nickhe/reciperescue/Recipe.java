@@ -6,8 +6,15 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
+/**
+ * Recipe object to use in the program
+ *
+ */
 public class Recipe implements Serializable {
 
+    /**
+     *
+     */
     private int id;
     private String recipeTitle;
     private String[] recipeIngredients;
