@@ -8,18 +8,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-<<<<<<< HEAD
+
         android:layout_height="204dp"
         android:gravity="center"
         android:text="@string/title_home"
-        android:textSize="24sp" />
-
+        android:textSize="24sp">
     <Button
         android:id="@+id/buttonLog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout" />
-=======
+
         android:layout_height="match_parent"
         android:fillViewport="true">
 
@@ -33,5 +32,5 @@
 
     </ScrollView>
 
->>>>>>> master
+
 </FrameLayout>

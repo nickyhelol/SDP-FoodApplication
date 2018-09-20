@@ -1,33 +1,24 @@
 package com.nickhe.reciperescue;
 
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-=======
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
->>>>>>> master
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-=======
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
->>>>>>> master
 
 
 /**
@@ -40,19 +31,11 @@ private Button logOutBtn;
     ListView listView;
     FakeRecipeRepository fakeRecipeRepository;
     public HomeFragment() {
-<<<<<<< HEAD
-
-
-    }
-=======
->>>>>>> master
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD
         View mview= inflater.inflate(R.layout.fragment_home,container,false);
         logOutBtn= mview.findViewById(R.id.buttonLog);
         this.firebaseAuth= FirebaseAuth.getInstance();
@@ -64,23 +47,6 @@ private Button logOutBtn;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-                getActivity().finish();
-                startActivity(new Intent(getActivity(),MainLoginActivity.class));
-
-                Toast.makeText(getActivity(),"log out clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-=======
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        return view;
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -89,7 +55,6 @@ private Button logOutBtn;
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
->>>>>>> master
     }
 
     /**
