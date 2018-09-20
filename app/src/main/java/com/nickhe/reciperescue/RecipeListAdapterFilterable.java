@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
@@ -21,11 +22,17 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
 
+    public Filter getRecipeIngredientsFilter() {
+        return recipeIngredientsFilter;
+    }
+
+    private RecipeIngredientsFilter recipeIngredientsFilter;
+
     public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
         originalRecipes = recipes;
         filteredRecipes = recipes;
         recipeNameFilter = new RecipeNameFilter();
-
+        recipeIngredientsFilter = new RecipeIngredientsFilter();
     }
 
     public Filter getNameFilter() {
@@ -58,6 +65,46 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     @Override
     public Filter getFilter() {
         return getNameFilter();
+    }
+
+    private class RecipeIngredientsFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            String[] ingredients = constraint.toString().split(",");
+
+            FilterResults recipeResults = new FilterResults();
+            List<Recipe> recipes = originalRecipes;
+            Recipe recipe;
+            ArrayList<Recipe> recipeList = new ArrayList<>();
+
+            for (int i = 0; i < recipes.size(); ++i) {
+                int counter = 0;
+                recipe = recipes.get(i);
+                String[] recipeIngredients = recipe.getRecipeIngredients();
+                for (int ii = 0; ii < ingredients.length; ++ii) {
+                    for (int iii = 0; iii < recipeIngredients.length; ++iii) {
+                        if (recipeIngredients[iii].toLowerCase().contains(ingredients[ii].toLowerCase())) {
+                            ++counter;
+                        }
+                    }
+                }
+                if (counter >= ingredients.length) {
+                    recipeList.add(recipe);
+                }
+            }
+
+            recipeResults.values = recipeList;
+            recipeResults.count = recipeList.size();
+
+            return recipeResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredRecipes = (ArrayList<Recipe>) results.values;
+            notifyDataSetChanged();
+        }
     }
 
     private class RecipeNameFilter extends Filter {

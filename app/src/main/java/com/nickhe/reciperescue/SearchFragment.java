@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,7 +66,7 @@ public class SearchFragment extends Fragment {
         searchButton = searchView.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                searchRecipe(v);
+                searchRecipeIngredients(v);
             }
         });
         addIngredientsButton = searchView.findViewById(R.id.addIngredientsButton);
@@ -116,11 +114,21 @@ public class SearchFragment extends Fragment {
      *
      * @param view
      */
-    public void searchRecipe(View view) {
+    public void searchRecipeIngredients(View view) {
+        Bundle recipeIngredientsBundle = new Bundle();
+        String ingredients ="";
+        recipeIngredientsBundle.putString("Type", "Ingredients");
         LinearLayout linearLayout = searchView.findViewById(R.id.ingredientsLinearLayout);
-        for (int i = 0; i < linearLayout.getChildCount(); ++i) {
-
+        for (int i = 1; i < linearLayout.getChildCount(); ++i) {
+            EditText ingredientInput = (EditText) linearLayout.getChildAt(i);
+            ingredients += ingredientInput.getText();
+            ingredients += ",";
         }
+        recipeIngredientsBundle.putString("Ingredients", ingredients);
+
+        RecipeListFragment recipeListFragment = new RecipeListFragment();
+        recipeListFragment.setArguments(recipeIngredientsBundle);
+        getFragmentManager().beginTransaction().replace(R.id.contentLayout, recipeListFragment).commit();
     }
 
     /**
