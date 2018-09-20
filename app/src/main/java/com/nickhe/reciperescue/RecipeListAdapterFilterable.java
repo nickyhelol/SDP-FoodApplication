@@ -1,8 +1,6 @@
-
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -22,11 +20,6 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     private List<Recipe> originalRecipes;
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
-
-    public Filter getRecipeIngredientsFilter() {
-        return recipeIngredientsFilter;
-    }
-
     private RecipeIngredientsFilter recipeIngredientsFilter;
 
     public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
@@ -34,6 +27,10 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         filteredRecipes = recipes;
         recipeNameFilter = new RecipeNameFilter();
         recipeIngredientsFilter = new RecipeIngredientsFilter();
+    }
+
+    public Filter getRecipeIngredientsFilter() {
+        return recipeIngredientsFilter;
     }
 
     public Filter getNameFilter() {
@@ -75,6 +72,17 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     @Override
     public Filter getFilter() {
         return getNameFilter();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+        ImageView imageView;
+
+        public ViewHolder(View view) {
+            super(view);
+            textView = view.findViewById(R.id.recipeTextView);
+            imageView = view.findViewById(R.id.recipeImageView);
+        }
     }
 
     private class RecipeIngredientsFilter extends Filter {
@@ -147,17 +155,6 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         protected void publishResults(CharSequence constraint, FilterResults results) {
             filteredRecipes = (ArrayList<Recipe>) results.values;
             notifyDataSetChanged();
-        }
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        ImageView imageView;
-
-        public ViewHolder(View view) {
-            super(view);
-            textView = view.findViewById(R.id.recipeTextView);
-            imageView = view.findViewById(R.id.recipeImageView);
         }
     }
 
