@@ -1,11 +1,14 @@
 package com.nickhe.reciperescue;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
 public class Recipe implements Serializable {
 
+    private int id;
     private String recipeTitle;
     private String[] recipeIngredients;
     private String recipePublisher;
@@ -15,7 +18,8 @@ public class Recipe implements Serializable {
     private Rating recipeRating;
     private Bitmap recipeImage;
 
-    public Recipe(String recipeTitle, String[] recipeIngredients, String recipePublisher, String time, String calories, String[] recipeInstruction, Bitmap recipeImage) {
+    public Recipe(int id, String recipeTitle, String[] recipeIngredients, String recipePublisher, String time, String calories, String[] recipeInstruction, Bitmap recipeImage) {
+        this.id = id;
         this.recipeTitle = recipeTitle;
         this.recipeIngredients = recipeIngredients;
         this.recipePublisher = recipePublisher;
@@ -87,5 +91,13 @@ public class Recipe implements Serializable {
 
     public void setCalories(String calories) {
         this.calories = calories;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

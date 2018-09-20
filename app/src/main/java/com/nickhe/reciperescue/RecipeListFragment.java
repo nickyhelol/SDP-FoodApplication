@@ -18,7 +18,6 @@ import android.widget.ListView;
 public class RecipeListFragment extends Fragment {
     private RecipeListAdapterFilterable recipeListAdapterFilterable = new RecipeListAdapterFilterable(getActivity(), FakeRecipeRepository.getFakeRecipeRepository(getActivity()).getFakeRepo());
 
-
     public RecipeListFragment() {
         // Required empty public constructor
     }

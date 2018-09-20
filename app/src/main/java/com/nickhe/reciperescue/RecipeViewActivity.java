@@ -18,13 +18,13 @@ public class RecipeViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
 
-        int position = getIntent().getIntExtra("position", -1);
+        int id = getIntent().getIntExtra("id", -1);
 
         Recipe recipe = null;
 
-        if(position != -1)
+        if(id != -1)
         {
-            recipe = HomeFragment.fakeRecipeRepository.getFakeRepo().get(position);
+            recipe = HomeFragment.fakeRecipeRepository.getFakeRepo().get(id);
         }
 
         Toast.makeText(this, recipe.getRecipeTitle()+" "+recipe.getRecipePublisher(), Toast.LENGTH_SHORT).show();

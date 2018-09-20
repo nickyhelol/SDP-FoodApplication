@@ -51,9 +51,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Recipe recipe = fakeRecipeRepository.getFakeRepo().get(position);
+
                 Intent intent = new Intent(getActivity(), RecipeViewActivity.class);
 
-                intent.putExtra("position", position);
+                intent.putExtra("id", recipe.getId());
 
                 startActivity(intent);
             }
