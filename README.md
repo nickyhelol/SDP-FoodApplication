@@ -3,3 +3,4 @@ A recipe sharing application which is designed to encourage people to share thei
 
 Effect Display
 
+ ![](images/image1.png)
