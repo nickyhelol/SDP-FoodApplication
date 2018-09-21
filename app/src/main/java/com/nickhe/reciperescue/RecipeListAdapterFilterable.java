@@ -18,6 +18,15 @@ import java.util.List;
 public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
 
     private List<Recipe> originalRecipes;
+
+    public List<Recipe> getOriginalRecipes() {
+        return originalRecipes;
+    }
+
+    public List<Recipe> getFilteredRecipes() {
+        return filteredRecipes;
+    }
+
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
     private RecipeIngredientsFilter recipeIngredientsFilter;
