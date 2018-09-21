@@ -27,8 +27,6 @@ public class RecipeViewActivity extends AppCompatActivity {
             recipe = HomeFragment.fakeRecipeRepository.getFakeRepo().get(id);
         }
 
-        Toast.makeText(this, recipe.getRecipeTitle()+" "+recipe.getRecipePublisher(), Toast.LENGTH_SHORT).show();
-
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(recipe.getRecipeImage());
 

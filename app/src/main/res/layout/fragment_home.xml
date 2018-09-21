@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeFragmentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-   <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="136dp"
-        android:gravity="center"
-        android:text="@string/title_home"
-        android:textSize="24sp" />
     <ListView
         android:id="@+id/homeListView"
         android:layout_width="match_parent"
