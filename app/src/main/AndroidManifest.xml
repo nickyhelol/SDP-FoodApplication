@@ -33,7 +33,6 @@
         <activity android:name=".RegisterToFirebaseActivity" />
         <activity android:name=".UpdateUserProfileActivity" />
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".RecipeViewActivity"></activity>
     </application>
 
 </manifest>
