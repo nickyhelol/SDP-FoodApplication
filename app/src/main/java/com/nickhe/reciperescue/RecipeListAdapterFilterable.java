@@ -22,6 +22,13 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     private RecipeNameFilter recipeNameFilter;
     private RecipeIngredientsFilter recipeIngredientsFilter;
 
+    /**
+     * Public constructor for the RecipeListAdapter
+     * Sets the recipe list to the repository before filtering.
+     *
+     * @param context Application context
+     * @param recipes Recipe list from the repository
+     */
     public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
         originalRecipes = recipes;
         filteredRecipes = recipes;
@@ -29,13 +36,26 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         recipeIngredientsFilter = new RecipeIngredientsFilter();
     }
 
+    /**
+     * Gets the RecipeIngredientsFilter object for filtering recipes by ingredients. Public so it can
+     * be accessed by the RecipeList fragment.
+     *
+     * @return the RecipeIngredientsFilter of the adapter for filtering
+     */
     public Filter getRecipeIngredientsFilter() {
         return recipeIngredientsFilter;
     }
 
+    /**
+     * Gets the RecipeNameFilter object for filtering recipes by recipe name (recipe title). Public
+     * so it is accessible by the RecipeList fragment.
+     *
+     * @return the RecipeNameFilter of the adapter for filtering
+     */
     public Filter getNameFilter() {
         return recipeNameFilter;
     }
+
 
     @NonNull
     @Override
@@ -52,7 +72,7 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
         viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() { //Adds an onclick listener for every recipe image in the adapter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipeViewActivity.class);
@@ -64,16 +84,28 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         });
     }
 
+    /**
+     * Gets the count of the result of the filter, in this case the filteredRecipes object.
+     *
+     * @return the number of recipes contained in the filteredRecipes object
+     */
     @Override
     public int getItemCount() {
         return filteredRecipes.size();
     }
 
+    /**
+     * Default filter is the recipe name filter
+     * @return the RecipeNameFilter of the adapter
+     */
     @Override
     public Filter getFilter() {
         return getNameFilter();
     }
 
+    /**
+     * Custom ViewHolder class to display the text and image for a recipe object.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
@@ -85,6 +117,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         }
     }
 
+    /**
+     *
+     */
     private class RecipeIngredientsFilter extends Filter {
 
         @Override
@@ -125,6 +160,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         }
     }
 
+    /**
+     *
+     */
     private class RecipeNameFilter extends Filter {
 
         @Override
