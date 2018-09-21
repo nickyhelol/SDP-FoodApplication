@@ -15,18 +15,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RecipeListAdapterFilterable class for RecyclerView implementation. Provides filter by:
+ * a. Recipe Title
+ * b. Recipe Ingredient(s)
+ * <p>
+ * On-click listener for each recipe item is included in the custom ViewHolder class.
+ */
 public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
 
     private List<Recipe> originalRecipes;
-
-    public List<Recipe> getOriginalRecipes() {
-        return originalRecipes;
-    }
-
-    public List<Recipe> getFilteredRecipes() {
-        return filteredRecipes;
-    }
-
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
     private RecipeIngredientsFilter recipeIngredientsFilter;
@@ -43,6 +41,25 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         filteredRecipes = recipes;
         recipeNameFilter = new RecipeNameFilter();
         recipeIngredientsFilter = new RecipeIngredientsFilter();
+    }
+
+    /**
+     * The getOriginalRecipes method returns the unfiltered recipe list
+     *
+     * @return unfiltered recipe list when adapter was created
+     */
+    public List<Recipe> getOriginalRecipes() {
+        return originalRecipes;
+    }
+
+    /**
+     * The getFilteredRecipes method returns the filtered recipe list after one of the filters is used
+     * to search the recipe list
+     *
+     * @return the result of the filter
+     */
+    public List<Recipe> getFilteredRecipes() {
+        return filteredRecipes;
     }
 
     /**
@@ -86,9 +103,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipeViewActivity.class);
 
-                intent.putExtra("id", recipe.getId());
+                intent.putExtra("id", recipe.getId()); //Adds an extra to the intent, the recipe id
 
-                v.getContext().startActivity(intent);
+                v.getContext().startActivity(intent); //Starts the view recipe activity
             }
         });
     }
@@ -105,6 +122,7 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
 
     /**
      * Default filter is the recipe name filter
+     *
      * @return the RecipeNameFilter of the adapter
      */
     @Override
@@ -127,10 +145,17 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     }
 
     /**
-     *
+     * RecipeIngredientsFilter class for filtering recipes by ingredients
      */
     private class RecipeIngredientsFilter extends Filter {
 
+        /**
+         * Performs the filtering for the RecipeIngredientsFilter class, used in the adapter to filter
+         * by ingredients
+         *
+         * @param constraint the list of ingredients to be filtered, will be separated by commas
+         * @return the result of the filtering
+         */
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             String[] ingredients = constraint.toString().split(",");
@@ -170,10 +195,18 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     }
 
     /**
-     *
+     * RecipeNameFilter class to filter recipes by recipe title, by default, the getFilter method
+     * returns this object.
      */
     private class RecipeNameFilter extends Filter {
 
+        /**
+         * Performs the filtering for RecipeNameFilter class, used in the adapter to filter by recipe
+         * title.
+         *
+         * @param constraint the name / part of the name of the desired recipe
+         * @return the result of the filtering
+         */
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             String nameFilter = constraint.toString().toLowerCase();
