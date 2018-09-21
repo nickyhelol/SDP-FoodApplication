@@ -55,10 +55,6 @@ public class FakeRecipeRepository {
         Bitmap food8 = BitmapFactory.decodeResource(context.getResources(), images[7]);
 
         Recipe r1 = new Recipe(
-<<<<<<< HEAD
-=======
-                0,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Chicken And Lemon Kebabs",
                 new String[]{
                         "460 grams chicken thigh fillets",
@@ -85,10 +81,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r2 = new Recipe(
-<<<<<<< HEAD
-=======
-                1,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Asian Chicken Salad With Ginger Sesame Dressing",
                 new String[]{
                         "1/4 cup rice wine vinegar",
@@ -117,10 +109,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r3 = new Recipe(
-<<<<<<< HEAD
-=======
-                2,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Grilled Salmon",
                 new String[]{
                         "salt",
@@ -144,10 +132,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r4 = new Recipe(
-<<<<<<< HEAD
-=======
-                3,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Spicy Lime Grilled Chicken",
                 new String[]{
                         "6 boneless, skinless chicken breast halves",
@@ -175,10 +159,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r5 = new Recipe(
-<<<<<<< HEAD
-=======
-                4,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Lightened Up Curry Egg Salad",
                 new String[]{
                         "8 large eggs",
@@ -201,10 +181,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r6 = new Recipe(
-<<<<<<< HEAD
-=======
-                5,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Barbecue Chicken Pizza",
                 new String[]{
                         "1 pizza crust",
@@ -227,10 +203,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r7 = new Recipe(
-<<<<<<< HEAD
-=======
-                6,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Thai Pineapple Fried Rice",
                 new String[]{
                         "1 cup quinoa",
@@ -257,10 +229,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r8 = new Recipe(
-<<<<<<< HEAD
-=======
-                7,
->>>>>>> a99891c25975d9b8995c126f5a605fbcb95df46e
                 "Very Veggie Fried Rice",
                 new String[]{
                         "3 cups brown rice",
