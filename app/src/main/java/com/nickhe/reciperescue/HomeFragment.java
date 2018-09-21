@@ -22,7 +22,7 @@ import android.widget.ListView;
  */
 public class HomeFragment extends Fragment {
 
-    ListView listView;
+    private ListView listView;
     static FakeRecipeRepository fakeRecipeRepository;
 
     public HomeFragment() {
@@ -60,6 +60,10 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    public ListView getListView() {
+        return listView;
     }
 
     /**
