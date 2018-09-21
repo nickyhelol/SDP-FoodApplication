@@ -2,48 +2,39 @@ package com.nickhe.reciperescue;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-private FirebaseAuth firebaseAuth;
-private Button logOutBtn;
 
     ListView listView;
-    FakeRecipeRepository fakeRecipeRepository;
+    static FakeRecipeRepository fakeRecipeRepository;
+
     public HomeFragment() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mview= inflater.inflate(R.layout.fragment_home,container,false);
-        logOutBtn= mview.findViewById(R.id.buttonLog);
-        this.firebaseAuth= FirebaseAuth.getInstance();
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-
-        // Inflate the layout for this fragment
-        return mview;
+        return view;
     }
 
     @Override
@@ -55,6 +46,20 @@ private Button logOutBtn;
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
         setListViewHeightBasedOnChildren(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Recipe recipe = fakeRecipeRepository.getFakeRepo().get(position);
+
+                Intent intent = new Intent(getActivity(), RecipeViewActivity.class);
+
+                intent.putExtra("id", recipe.getId());
+
+                startActivity(intent);
+            }
+        });
     }
 
     /**
