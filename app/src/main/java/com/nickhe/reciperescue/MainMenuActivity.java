@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainMenuActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
     private ProfileFragment profileFragment;
@@ -29,7 +28,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
@@ -66,8 +65,11 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
-    public void setFragment(Fragment fragment)
-    {
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
+
+    public void setFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, fragment).commit();
     }
 
@@ -75,10 +77,10 @@ public class MainMenuActivity extends AppCompatActivity {
      * This method will log out the user from the firebase and finish the current activity which is main menu activity and
      * goes back to the main login activity once log out menu is clicked.
      */
-    private void Logout(){
+    private void Logout() {
         firebaseAuth.signOut();
         finish();
-        startActivity(new Intent(MainMenuActivity.this,MainLoginActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, MainLoginActivity.class));
     }
 
     @Override
@@ -90,7 +92,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logoutMenu:
                 Logout();
                 break;
