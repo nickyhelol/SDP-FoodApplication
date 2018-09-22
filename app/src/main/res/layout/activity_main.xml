@@ -37,7 +37,7 @@
         android:layout_marginTop="8dp"
         android:alpha="0.9"
         android:background="@drawable/button"
-        android:onClick="signup"
+        android:onClick="signUp"
         android:text="Sign Up"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"

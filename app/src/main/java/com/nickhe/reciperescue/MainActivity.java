@@ -1,32 +1,35 @@
 package com.nickhe.reciperescue;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-//Test comment
+
+/**
+ * MainActivity is the menu the user would see after they started the application. It should have two
+ * options:
+ * a. Login button for logging in
+ * b. Sign Up button for new users
+ * <p>
+ * Users are required to log in before accessing other features of the application.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    /*public static String accountPref = "accountPref";
-    public static String emailPref = "emailPref";
-    public static String passPref = "passPref";
-    public static SharedPreferences sharedPreferences;
-    private DrawerLayout mDrawerLayout;*/
-
-    public void login(View view)
-    {
+    /**
+     * The login method starts the MainLoginActivity activity and switches to it.
+     *
+     * @param view
+     */
+    public void login(View view) {
         startActivity(new Intent(getApplicationContext(), MainLoginActivity.class));
     }
 
-    public void signup(View view)
-    {
+    /**
+     * The signUp method starts the RegisterToFirebaseActivity and switches to it.
+     *
+     * @param view
+     */
+    public void signUp(View view) {
         startActivity(new Intent(getApplicationContext(), RegisterToFirebaseActivity.class));
     }
 
