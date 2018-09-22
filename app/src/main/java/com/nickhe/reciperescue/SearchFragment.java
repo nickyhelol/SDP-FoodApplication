@@ -23,14 +23,12 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
 
     private View searchView;
-    private int recipeMinRatingFilter;
-    private ArrayList<String> recipeTagsFilter;
+    private int recipeMinRatingFilter; //TODO SPRINT 2
+    private ArrayList<String> recipeTagsFilter; //TODO SPRINT 2
     private Button searchButton;
     private Button addIngredientsButton;
     private int numberOfIngredients;
     private SearchView recipeSearchView;
-
-
     /**
      * The constructor for SearchFragment fragment. Initialises the variables, notably the numberOfIngredients
      * variable to use with the addIngredients method.
@@ -40,7 +38,6 @@ public class SearchFragment extends Fragment {
         recipeTagsFilter = new ArrayList<>();
         numberOfIngredients = 1;
     }
-
 
     /**
      * Overrides the onCreateView method from superclass. Initialises searchView to the view of the
@@ -61,6 +58,7 @@ public class SearchFragment extends Fragment {
 
     /**
      * TODO
+     *
      * @param view
      * @param savedInstanceState
      */
@@ -122,7 +120,7 @@ public class SearchFragment extends Fragment {
      *
      * @param view The view of the searching activity / fragment
      */
-    public void searchRecipeIngredients(View view) {
+    public boolean searchRecipeIngredients(View view) {
         Bundle recipeIngredientsBundle = new Bundle();
         String ingredients = "";
         recipeIngredientsBundle.putString("Type", "Ingredients");
@@ -137,6 +135,12 @@ public class SearchFragment extends Fragment {
         RecipeListFragment recipeListFragment = new RecipeListFragment();
         recipeListFragment.setArguments(recipeIngredientsBundle);
         getFragmentManager().beginTransaction().replace(R.id.contentLayout, recipeListFragment).commit();
+
+        if (recipeIngredientsBundle.get("Ingredients").equals(ingredients)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -146,7 +150,7 @@ public class SearchFragment extends Fragment {
      *
      * @param view The view of the search fragment
      */
-    public void addIngredients(View view) {
+    public boolean addIngredients(View view) {
         LinearLayout layout = this.searchView.findViewById(R.id.ingredientsLinearLayout);
         EditText nextIngredient = new EditText(getActivity());
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -160,9 +164,16 @@ public class SearchFragment extends Fragment {
         nextIngredient.setId(numberOfIngredients + 1);
         layout.addView(nextIngredient);
         ++numberOfIngredients;
+
+        if (nextIngredient != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * TODO Add rating filter - Sprint 2
+     * TODO Add tags filter - Sprint 2
      */
 }
