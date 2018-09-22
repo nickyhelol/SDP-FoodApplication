@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 public class RecipeViewActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +16,7 @@ public class RecipeViewActivity extends AppCompatActivity {
 
         //Once the intent is called, this activity picks up the recipe by its index
         int id = getIntent().getIntExtra("id", -1);
-
+        
         Recipe recipe = null;
 
         if(id != -1)
@@ -41,7 +39,7 @@ public class RecipeViewActivity extends AppCompatActivity {
             procedureBuilder.append(count + ".) " + value + "\n");
         }
 
-        //WE initialize the elements from the XML file into this activity
+        //WE initialize the XML elements for later access
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         TextView recipeName = (TextView) findViewById(R.id.recipeName);
         TextView calorieValue = (TextView) findViewById(R.id.calorieText);
@@ -49,7 +47,7 @@ public class RecipeViewActivity extends AppCompatActivity {
         TextView recIngredients = (TextView) findViewById(R.id.ingredientsList);
         TextView recProcedure = (TextView) findViewById(R.id.proceduresList);
 
-        //WE set the text/image values of the XML file that we're going to display on the layout
+        //WE set the text/image values for the XML file that we're going to display on the layout
         imageView.setImageBitmap(recipe.getRecipeImage());
         recipeName.setText(recipe.getRecipeTitle());
         calorieValue.setText(recipe.getCalories());
@@ -77,4 +75,6 @@ public class RecipeViewActivity extends AppCompatActivity {
         ListView proceduresListView = (ListView) findViewById(R.id.proceduresListView);
         proceduresListView.setAdapter(procedureslistViewAdapter);*/
     }
+
+
 }
