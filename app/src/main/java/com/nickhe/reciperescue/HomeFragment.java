@@ -26,7 +26,7 @@ import android.widget.ListView;
  */
 public class HomeFragment extends Fragment {
 private FirebaseAuth firebaseAuth;
-private Button logOutBtn;
+
 
     ListView listView;
     FakeRecipeRepository fakeRecipeRepository;
@@ -37,7 +37,7 @@ private Button logOutBtn;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View mview= inflater.inflate(R.layout.fragment_home,container,false);
-        logOutBtn= mview.findViewById(R.id.buttonLog);
+
         this.firebaseAuth= FirebaseAuth.getInstance();
 
 

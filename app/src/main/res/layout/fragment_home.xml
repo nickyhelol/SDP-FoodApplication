@@ -13,12 +13,6 @@
         android:gravity="center"
         android:text="@string/title_home"
         android:textSize="24sp">
-    <Button
-        android:id="@+id/buttonLog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout" />
-
         android:layout_height="match_parent"
         android:fillViewport="true">
 
