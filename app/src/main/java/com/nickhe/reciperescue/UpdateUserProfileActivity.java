@@ -17,6 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * This activity is intended to provide facility to user so as to update their profile, name, age, email
+ *
+ * TODO adding user image to database
+ * */
 public class UpdateUserProfileActivity extends AppCompatActivity {
 
     private EditText updateName, updateEmail, updateAge;
@@ -76,6 +81,9 @@ public class UpdateUserProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method initialize the variables.
+     */
     private void initializeViews() {
 
         updateName = findViewById(R.id.updateNameET);

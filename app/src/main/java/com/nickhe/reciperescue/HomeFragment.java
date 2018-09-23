@@ -21,11 +21,6 @@ import android.widget.ListView;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-<<<<<<< HEAD
-private FirebaseAuth firebaseAuth;
-
-=======
->>>>>>> master
 
     private ListView listView;
     static FakeRecipeRepository fakeRecipeRepository;
@@ -37,13 +32,10 @@ private FirebaseAuth firebaseAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD
-        View mview= inflater.inflate(R.layout.fragment_home,container,false);
 
-        this.firebaseAuth= FirebaseAuth.getInstance();
-=======
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
->>>>>>> master
+
 
         return view;
     }

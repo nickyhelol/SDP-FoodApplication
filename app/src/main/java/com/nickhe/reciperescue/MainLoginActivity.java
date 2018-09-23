@@ -22,6 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This activity is the main login activity where user can provide email and password to login into the application
+ *
+ */
 public class MainLoginActivity extends AppCompatActivity {
 
     private EditText userEmail;
@@ -178,6 +182,11 @@ public class MainLoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method check if the given email address is valid or not.
+     * @param email email address
+     * @return true if the email is valid and false otherwise
+     */
     public static boolean isEmailValid(String email) {
         boolean isValid = false;
 
@@ -192,6 +201,11 @@ public class MainLoginActivity extends AppCompatActivity {
         return isValid;
     }
 
+    /**
+     * This method checks if the given password is valid or not.
+     * @param password password
+     * @return true if the password is valid and false otherwise
+     */
     public static boolean isPasswordValid(String password){
         return password.length() >= 6;
     }

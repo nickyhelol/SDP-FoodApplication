@@ -24,6 +24,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+/**
+ * This activity is used to retrieve user information from database to the application screen.
+ *
+ * TODO user image retrieve from database
+ */
 public class UserProfileActivity extends AppCompatActivity {
     private ImageView profilePicture;
     private TextView pName,pAge, pEmail;

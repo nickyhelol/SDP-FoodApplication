@@ -33,6 +33,11 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This activity is intended to register user to the database, They need to provide email, age, and password to register to the database
+ * Once they enter their details, they need to verify their email address by clicking on the email sent by the database of recipe rescue
+ * application. They can only login after verifying their email.
+ */
 public class RegisterToFirebaseActivity extends AppCompatActivity {
 
 
@@ -81,7 +86,7 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
                                 startActivity(new Intent(RegisterToFirebaseActivity.this,MainLoginActivity.class));
                             }
                             else{
-                                Toast.makeText(RegisterToFirebaseActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterToFirebaseActivity.this, "Registration failed, User name already exists", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -106,6 +111,9 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method initialize the variables.
+     */
     private void initializeViews(){
         name= (EditText) findViewById(R.id.updateNameET);
         password = (EditText) findViewById(R.id.userPasswordField);
@@ -190,6 +198,12 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
         databaseReference.setValue(user);
     }
 
+
+    /**
+     * This method check if the given email address is valid or not.
+     * @param email email address
+     * @return true if the email is valid and false otherwise
+     */
     public static boolean isEmailValid(String email) {
         boolean isValid = false;
 
@@ -204,6 +218,11 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
         return isValid;
     }
 
+    /**
+     * This method checks if the given password is valid or not.
+     * @param password password
+     * @return true if the password is valid and false otherwise
+     */
     public static boolean isPasswordValid(String password){
         return password.length() >= 6;
     }
