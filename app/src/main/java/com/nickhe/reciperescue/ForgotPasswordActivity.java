@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Forgot password activity class, it will take email and connects to the firebase database and send password
+ * reset link to user's email address.
+ */
+
 public class ForgotPasswordActivity extends Activity {
 
     private EditText emailView;
@@ -59,6 +64,9 @@ public class ForgotPasswordActivity extends Activity {
         });
     }
 
+    /**
+     * This method initialize the components of the activity
+     */
     private void setUpView(){
         emailView=(EditText) findViewById(R.id.emailTextView);
         pwResetBtn= (Button) findViewById(R.id.passwordResetBtn);

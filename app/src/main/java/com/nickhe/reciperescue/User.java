@@ -4,6 +4,11 @@ import android.graphics.Bitmap;
 
 import java.util.ArrayList;
 
+/**
+ * This is the model for user with different attributes.
+ *
+ * TODO add new feature to the database including recipes. Probably need to extend Json tree.
+ */
 public class User {
 
     private String age;

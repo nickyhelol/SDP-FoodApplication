@@ -15,6 +15,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * This activity is intended for the password update functionality
+ * If user wants to update (change) password, they can do it from this activity, it will update the password in the firebase.
+ */
 public class PasswordUpdate extends Activity {
 
     private Button updatePasswordButton;
@@ -56,6 +60,7 @@ public class PasswordUpdate extends Activity {
     }
 
     //adding override method
+    //when clicked on the back arrow on top of this page, it will lead to the previous activity.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
