@@ -62,7 +62,6 @@ public class MainLoginActivity extends AppCompatActivity {
         }
 
 
-
         //providing onclick function for login button
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
