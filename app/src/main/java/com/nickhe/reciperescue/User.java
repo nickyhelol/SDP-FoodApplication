@@ -1,6 +1,7 @@
 package com.nickhe.reciperescue;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class User {
     private String email;
     private String name;
     private String description;        //New added feature
-    private Bitmap profileImage;
+    private Uri profileImage;
     private ArrayList<Recipe> personalRepo;
 
     public User(){
@@ -60,11 +61,11 @@ public class User {
         this.description = description;
     }
 
-    public Bitmap getProfileImage() {
+    public Uri getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(Bitmap profileImage) {
+    public void setProfileImage(Uri profileImage) {
         this.profileImage = profileImage;
     }
 

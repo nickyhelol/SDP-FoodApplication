@@ -66,5 +66,3 @@ public class RecipeListFragment extends Fragment {
         }
     }
 }
-//
-//
