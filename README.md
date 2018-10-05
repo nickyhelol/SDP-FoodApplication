@@ -2,13 +2,13 @@
 A recipe sharing application which is designed to encourage people to share their own recipes and get some rewards back. It aims to build a food social community.
 
 ## Demo
- <img src="images/image1.png" >
- <img src="images/image2.png" >
- <img src="images/image3.png" >
- <img src="images/image4.png" >
- <img src="images/image5.png" >
- <img src="images/image6.png" >
- <img src="images/image7.png" >
+ <img src="images/img1.png" >
+ <img src="images/img2.png" >
+ <img src="images/img3.png" >
+ <img src="images/img4.png" >
+ <img src="images/img5.png" >
+ <img src="images/img6.png" >
+ <img src="images/img7.png" >
 
 ## Features
 
