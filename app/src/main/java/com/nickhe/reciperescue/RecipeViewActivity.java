@@ -1,79 +1,122 @@
 package com.nickhe.reciperescue;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 
 public class RecipeViewActivity extends AppCompatActivity {
+
+    Recipe recipe;
+    String[] ingredients;
+    String[] instructions;
+
+    ImageView recipeImage;
+    TextView recipeTitle;
+    TextView publisherTextView;
+    TextView ingredientsTextView;
+    TextView caloriesTextView;
+    TextView timeTextView;
+    ListView ingredientsListView;
+    TextView instructionTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
 
-        //Once the intent is called, this activity picks up the recipe by its index
         int id = getIntent().getIntExtra("id", -1);
-        
-        Recipe recipe = null;
 
-        if(id != -1)
-        {
+        recipe = null;
+
+        if (id != -1) {
             recipe = HomeFragment.fakeRecipeRepository.getFakeRepo().get(id);
+            ingredients = recipe.getRecipeIngredients();
+            instructions = recipe.getRecipeInstruction();
         }
 
-        //We build the ingredients and procedure from String array back into a single string
-        StringBuilder ingredientBuilder = new StringBuilder();
-        for(String value : recipe.getRecipeIngredients()){
+        recipeImage = findViewById(R.id.recipeImage_viewRecipeActivity);
+        recipeTitle = findViewById(R.id.recipeTitleView);
+        publisherTextView = findViewById(R.id.publisherTextView);
+        ingredientsTextView = findViewById(R.id.ingredients_recipeViewActivity);
+        caloriesTextView = findViewById(R.id.calorieTextView);
+        timeTextView = findViewById(R.id.timeTextView);
+        ingredientsListView = findViewById(R.id.ingredientListView);
+        instructionTextView = findViewById(R.id.instructionsTextView);
 
-            ingredientBuilder.append(" - " + value + "\n");
+        recipeImage.setImageBitmap(recipe.getRecipeImage());
+        recipeTitle.setText(recipe.getRecipeTitle());
+        publisherTextView.setText(recipe.getRecipePublisher());
+        ingredientsTextView.setText(String.valueOf(ingredients.length));
+        caloriesTextView.setText(recipe.getCalories());
+        timeTextView.setText(recipe.getTime());
 
+        final ArrayAdapter<String> ingredientsArrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, ingredients) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // Get the current item from ListView
+                View view = super.getView(position, convertView, parent);
+                if (position % 2 == 1) {
+                    // Set a background color for ListView regular row/item
+                    view.setBackgroundColor(Color.parseColor("#d9e0de"));
+                }
+
+                return view;
+            }
+        };
+
+        ingredientsListView.setAdapter(ingredientsArrayAdapter);
+        setListViewHeightBasedOnChildren(ingredientsListView);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0;i<instructions.length;i++)
+        {
+            stringBuilder.append((i+1)+". "+instructions[i]+"\n\n");
         }
 
-        int count = 0;
-        StringBuilder procedureBuilder = new StringBuilder();
-        for(String value : recipe.getRecipeInstruction()){
-            count += 1;
-            procedureBuilder.append(count + ".) " + value + "\n");
+        instructionTextView.setText(stringBuilder.toString());
+
+    }
+
+    /**
+     * Make sure the listView will be set by the correct height based on
+     * the number of the items it has.
+     *
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
         }
-
-        //WE initialize the XML elements for later access
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        TextView recipeName = (TextView) findViewById(R.id.recipeName);
-        TextView calorieValue = (TextView) findViewById(R.id.calorieText);
-        TextView recOwner = (TextView) findViewById(R.id.recipePublisher);
-        TextView recIngredients = (TextView) findViewById(R.id.ingredientsList);
-        TextView recProcedure = (TextView) findViewById(R.id.proceduresList);
-
-        //WE set the text/image values for the XML file that we're going to display on the layout
-        imageView.setImageBitmap(recipe.getRecipeImage());
-        recipeName.setText(recipe.getRecipeTitle());
-        calorieValue.setText(recipe.getCalories());
-        recOwner.setText("Published by: " + recipe.getRecipePublisher());
-        recIngredients.setText(ingredientBuilder.toString());
-        recProcedure.setText(procedureBuilder.toString());
-
-        /* ArrayAdapter<String> ingredientsListViewAdapter = new ArrayAdapter<String>(
-                this,
-                R.layout.listview_layout,
-                R.id.ingredientNameTextView,
-                recipe.getRecipeIngredients()
-        );
-
-        ListView ingredientsListView = (ListView) findViewById(R.id.ingredientsListView);
-        ingredientsListView.setAdapter(ingredientsListViewAdapter);
-
-        ArrayAdapter<String> procedureslistViewAdapter = new ArrayAdapter<String>(
-                this,
-                R.layout.listview_layout,
-                R.id.ingredientNameTextView,
-                recipe.getRecipeInstruction()
-        );
-
-        ListView proceduresListView = (ListView) findViewById(R.id.proceduresListView);
-        proceduresListView.setAdapter(procedureslistViewAdapter);*/
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
 
