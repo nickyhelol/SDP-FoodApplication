@@ -4,13 +4,20 @@ package com.nickhe.reciperescue;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.ToggleButton;
+
+import com.nex3z.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
 
@@ -29,6 +36,7 @@ public class SearchFragment extends Fragment {
     private Button addIngredientsButton;
     private int numberOfIngredients;
     private SearchView recipeSearchView;
+    private IngredientTokensAdapter ingredientTokensAdapter = new IngredientTokensAdapter(getActivity());
     /**
      * The constructor for SearchFragment fragment. Initialises the variables, notably the numberOfIngredients
      * variable to use with the addIngredients method.
@@ -36,7 +44,7 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         recipeMinRatingFilter = 0;
         recipeTagsFilter = new ArrayList<>();
-        numberOfIngredients = 1;
+        numberOfIngredients = 0;
     }
 
     /**
@@ -74,10 +82,16 @@ public class SearchFragment extends Fragment {
         addIngredientsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addIngredients(v);
+                addIngredientToList(v);
             }
         });
         recipeSearchView = searchView.findViewById(R.id.recipeSearchView);
+
+//        RecyclerView recipeRecyclerView = searchView.findViewById(R.id.searchRecyclerView);
+//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+//        recipeRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+//        recipeRecyclerView.setAdapter(ingredientTokensAdapter);
+
         recipeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -124,11 +138,14 @@ public class SearchFragment extends Fragment {
         Bundle recipeIngredientsBundle = new Bundle();
         String ingredients = "";
         recipeIngredientsBundle.putString("Type", "Ingredients");
-        LinearLayout linearLayout = searchView.findViewById(R.id.ingredientsLinearLayout);
-        for (int i = 1; i < linearLayout.getChildCount(); ++i) {
-            EditText ingredientInput = (EditText) linearLayout.getChildAt(i);
-            ingredients += ingredientInput.getText();
-            ingredients += ",";
+        FlowLayout layout = searchView.findViewById(R.id.searchFlowLayout);
+        for (int i = 0; i < layout.getChildCount(); ++i) {
+//            LinearLayout ingredientLayout = (LinearLayout) layout.getChildAt(i);
+            ToggleButton ingredientInput = (ToggleButton) layout.getChildAt(i);
+            if (ingredientInput.isChecked()) {
+                ingredients += ingredientInput.getText();
+                ingredients += ",";
+            }
         }
         recipeIngredientsBundle.putString("Ingredients", ingredients);
 
@@ -170,6 +187,21 @@ public class SearchFragment extends Fragment {
         } else {
             return false;
         }
+    }
+
+    public void addIngredientToList(View view) {
+        EditText ingredientText = this.searchView.findViewById(R.id.recipeIngredientsFilterInput1);
+        String buttonText = ingredientText.getText().toString();
+//        ingredientTokensAdapter.addToken(buttonText);
+        ToggleButton ingredientToken = new ToggleButton(getActivity());
+        FlowLayout flowLayout = this.searchView.findViewById(R.id.searchFlowLayout);
+        ingredientToken.setId(numberOfIngredients);
+        ingredientToken.setText(buttonText);
+        ingredientToken.setTextOff(buttonText);
+        ingredientToken.setTextOn(buttonText);
+        ingredientToken.setBackgroundResource(R.drawable.token_states);
+        flowLayout.addView(ingredientToken);
+        ++numberOfIngredients;
     }
 
     /**
