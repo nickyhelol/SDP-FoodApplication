@@ -70,8 +70,8 @@ public class FakeRecipeRepository {
                         "115 grams soured cream "
                 },
                 "Nick He",
-                "25 Mins",
-                "640 Calories",
+                "25",
+                "640",
                 new String[]{
                         "Put the chicken, lemon zest, all but 1 tbsp of the lemon juice, half the olive oil and the garlic in a bowl. Season with freshly ground black pepper and mix well.",
                         "Heat a non-stick griddle pan until very hot. Thread the chicken, onion wedges and pepper on to pre-soaked wooden or metal skewers. Cook for 10 minutes, turning once, until lightly charred and cooked through with no pink remaining.",
@@ -100,8 +100,8 @@ public class FakeRecipeRepository {
                         "2 cups rotisserie chicken"
                 },
                 "Nick He",
-                "30 Mins",
-                "350 Calories",
+                "30",
+                "350",
                 new String[]{
                         "Combine all salad dressing ingredients, except for sesame seeds, and using only 1 tablespoon of soy sauce. Whisk until emulsified. Taste your dressing and add another 1 tablespoon of soy sauce, if desired, to make it saltier. Add 2 tablespoons sesame seeds to the dressing and mix them in.",
                         "Combine all salad ingredients in a large bowl, except for 1 tablespoon of sesame seeds and chicken. Add the salad dressing to the salad and toss - do not add all salad dressing at once: you might not need all of it. Add just enough salad dressing to coat the salad ingredients.",
@@ -124,8 +124,8 @@ public class FakeRecipeRepository {
                         "1 pinch white pepper",
                         "1/2 teaspoon salt"},
                 "Nick He",
-                "25 Mins",
-                "320 Calories",
+                "25",
+                "320",
                 new String[]{
                         "Melt butter in a non stick skillet until the butter is smokey hot",
                         "Season salmon filet lightly with salt and pepper on both sides.  Place salmon filet into skillet and cook for 3 to 4 minutes per side",
@@ -150,8 +150,8 @@ public class FakeRecipeRepository {
                         "freshly ground pepper"
                 },
                 "Nick He",
-                "45 Mins",
-                "50 Calories",
+                "45",
+                "50",
                 new String[]{
                         "Generously season both sides of chicken with salt and pepper and transfer to a large, re-sealable bag.",
                         "In a small bowl, whisk together olive oil, lime juice, garlic, onion powder, lime zest, oregano and red pepper flakes.",
@@ -175,8 +175,8 @@ public class FakeRecipeRepository {
                         "1 mango"
                 },
                 "Nick He",
-                "35 Mins",
-                "240 Calories",
+                "35",
+                "240",
                 new String[]{
                         "Hard boil the eggs by dropping them carefully into a pot of boiling water. Boil for 8 minutes, covered, and allow to cool. Peel the shells off and cut the eggs in half to remove the hardened yolk from the center. Finely chop the whites and set aside.",
                         "Chop the red pepper and the onion as finely as you like – I prefer to chop them pretty small. Combine egg whites, vegetables, salt, curry, and mayo in a bowl. Stir until well combined. Season with pepper to taste.",
@@ -198,8 +198,8 @@ public class FakeRecipeRepository {
                         "chopped cilantro"
                 },
                 "Nick He",
-                "30 Mins",
-                "630 Calories",
+                "30",
+                "630",
                 new String[]{
                         "Preheat oven to 475 degrees F. Place pizza crust on foil-lined baking sheet.",
                         "Spread barbecue sauce on pizza crust. Add shredded chicken, onion, and bell peppers on top of the barbecue sauce. Top with cheese.",
@@ -223,8 +223,8 @@ public class FakeRecipeRepository {
                         "1/4 cup thai basil leaves"
                 },
                 "Nick He",
-                "15 Mins",
-                "480 Calories",
+                "15",
+                "480",
                 new String[]{
                         "In a large saucepan of 2 cups water, cook quinoa according to package instructions; set aside.",
                         "In a small bowl, whisk together soy sauce, oyster sauce, fish sauce, sugar and red chili paste; set aside.",
@@ -254,8 +254,8 @@ public class FakeRecipeRepository {
                         "1 tablespoon sesame oil"
                 },
                 "Nick He",
-                "30 Mins",
-                "520 Calories",
+                "30",
+                "520",
                 new String[]{
                         "Heat oil in a large non-stick wok (or large, deep skillet) over medium-high heat. Add carrots, onions, garlic and ginger and saute 3 minutes.",
                         "Add broccoli and bell pepper and saute until veggies are soft, about 3 - 4 minutes. Move veggies over to one side of the pan, crack eggs into opposite side and scramble and cook through.",
