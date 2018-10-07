@@ -71,6 +71,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 pName.setText("Name of User: "+user.getName());
                 pAge.setText("Age of User: "+user.getAge());
                 pEmail.setText("Email of User: "+user.getEmail());
+
             }
 
             @Override
