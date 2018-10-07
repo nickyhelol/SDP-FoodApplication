@@ -70,7 +70,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/editText2"
+                            android:id="@+id/recipeIngredientInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -126,7 +126,7 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/editText4"
+                            android:id="@+id/recipeInstructionInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -208,6 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:onClick="submitRecipe"
                 android:text="Submit Recipe" />
         </LinearLayout>
     </ScrollView>

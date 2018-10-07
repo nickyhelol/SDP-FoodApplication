@@ -43,6 +43,14 @@ public class Recipe implements Serializable {
         this.recipePublisher = recipePublisher;
     }
 
+    public Recipe(String recipeTitle, String[] recipeIngredients, String time, String calories, String[] recipeInstruction) {
+        this.time = time;
+        this.recipeTitle = recipeTitle;
+        this.recipeIngredients = recipeIngredients;
+        this.calories = calories;
+        this.recipeInstruction = recipeInstruction;
+    }
+
     /**
      * Proper constructor for the recipe object, contains all the required fields for the recipe.
      * Should be used in all cases.
