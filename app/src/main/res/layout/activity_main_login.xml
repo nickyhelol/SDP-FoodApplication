@@ -112,4 +112,14 @@
         app:layout_constraintTop_toBottomOf="@+id/userPasswordField"
         app:layout_constraintVertical_bias="0.098" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegTextView"
+        app:layout_constraintVertical_bias="0.098"></com.google.android.gms.common.SignInButton>
+
 </android.support.constraint.ConstraintLayout>
