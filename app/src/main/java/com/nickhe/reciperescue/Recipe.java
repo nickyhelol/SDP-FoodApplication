@@ -1,6 +1,7 @@
 package com.nickhe.reciperescue;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 

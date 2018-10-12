@@ -87,11 +87,6 @@ public class SearchFragment extends Fragment {
         });
         recipeSearchView = searchView.findViewById(R.id.recipeSearchView);
 
-//        RecyclerView recipeRecyclerView = searchView.findViewById(R.id.searchRecyclerView);
-//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
-//        recipeRecyclerView.setLayoutManager(staggeredGridLayoutManager);
-//        recipeRecyclerView.setAdapter(ingredientTokensAdapter);
-
         recipeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
