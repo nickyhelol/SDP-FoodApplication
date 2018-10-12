@@ -2,17 +2,38 @@ package com.nickhe.reciperescue;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.Query;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,6 +49,11 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
     private RecipeIngredientsFilter recipeIngredientsFilter;
+    private FirebaseFirestore firebaseFirestore;
+    private Query query;
+    private Algolia algolia;
+    private SearchResultsJSONParser searchResultsJSONParser;
+    private Activity context;
 
     /**
      * Public constructor for the RecipeListAdapter
@@ -37,10 +63,15 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
      * @param recipes Recipe list from the repository
      */
     public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
+        this.context = context;
         originalRecipes = recipes;
         filteredRecipes = recipes;
         recipeNameFilter = new RecipeNameFilter();
         recipeIngredientsFilter = new RecipeIngredientsFilter();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        algolia = new Algolia();
+        searchResultsJSONParser = new SearchResultsJSONParser();
+
     }
 
     /**
@@ -97,7 +128,13 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         ViewHolder viewHolder = (ViewHolder) holder;
         final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
-        viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+        if (recipe.getRecipeImage() != null) {
+            viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+        } else {
+            Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_picture);
+            viewHolder.imageView.setImageBitmap(image);
+        }
+
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() { //Adds an onclick listener for every recipe image in the adapter
             @Override
             public void onClick(View v) {
@@ -165,6 +202,7 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             Recipe recipe;
             ArrayList<Recipe> recipeList = new ArrayList<>();
 
+
             for (int i = 0; i < recipes.size(); ++i) {
                 int counter = 0;
                 recipe = recipes.get(i);
@@ -213,9 +251,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
 
             FilterResults recipeResults = new FilterResults();
             List<Recipe> recipes = originalRecipes;
-            ArrayList<Recipe> recipeList = new ArrayList<>();
-
+            final List<Recipe> recipeList = new ArrayList<>();
             Recipe recipe;
+            query = new Query(nameFilter).setRestrictSearchableAttributes("recipeTitle");
 
             for (int i = 0; i < recipes.size(); ++i) {
                 recipe = recipes.get(i);
@@ -223,7 +261,13 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
                     recipeList.add(recipe);
                 }
             }
-
+            algolia.index.searchAsync(query, new CompletionHandler() {
+                @Override
+                public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
+                    List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
+                    recipeList.addAll(recipes);
+                }
+            });
             recipeResults.values = recipeList;
             recipeResults.count = recipeList.size();
 
@@ -237,6 +281,5 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             notifyDataSetChanged();
         }
     }
-
 }
 
