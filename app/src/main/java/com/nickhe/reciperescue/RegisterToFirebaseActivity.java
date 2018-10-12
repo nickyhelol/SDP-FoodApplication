@@ -204,7 +204,7 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
         DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());//getting the UID of the user from the firebase console.
 
         //Creating user object
-        User user = new User(userName, userEmail, userAge);
+        User user = new User(userName, userAge, userEmail);
 
         //since the database reference need an object of class, we created the object of user class, and assigned the value
         //as per the constructor to pass into the database reference.
