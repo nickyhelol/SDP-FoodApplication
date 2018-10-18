@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment {
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
-        setListViewHeightBasedOnChildren(listView);
+        ListViewProcessor.setListViewHeightBasedOnChildren(listView);
 
         //Set clickListener to allow users to select image from their phone as the profile image
         profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -98,11 +98,7 @@ public class ProfileFragment extends Fragment {
 
                 Recipe recipe = fakeRecipeRepository.getFakeRepo().get(position);
 
-                Intent intent = new Intent(getActivity(), RecipeViewActivity.class);
-
-                intent.putExtra("id", recipe.getId());
-
-                startActivity(intent);
+                startRecipeViewActivity(recipe);
             }
         });
 
@@ -114,6 +110,17 @@ public class ProfileFragment extends Fragment {
              }
          });
 
+    }
+
+    /**
+     *
+     * @param recipe
+     */
+    private void startRecipeViewActivity(Recipe recipe)
+    {
+        Intent i = new Intent(getActivity().getBaseContext(), RecipeViewActivity.class);
+        i.putExtra("recipe", recipe);
+        startActivity(i);
     }
 
     @Override
@@ -141,11 +148,6 @@ public class ProfileFragment extends Fragment {
                 {
                     Uri selectedImg = data.getData();
 
-                    /*CropImage.activity()
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1,1)
-                            .start(getActivity());*/
-
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     Cursor cursor = getActivity().getContentResolver()
                             .query(selectedImg, filePathColumn, null, null, null);
@@ -156,40 +158,7 @@ public class ProfileFragment extends Fragment {
                     profileImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 }
 
-           /* case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri resultUri = result.getUri();
-
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Exception error = result.getError();
-                }*/
         }
     }
 
-    /**
-     * Make sure the listView will be set by the correct height based on
-     * the number of the items it has.
-     * @param listView
-     */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
 }
