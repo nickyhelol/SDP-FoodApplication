@@ -129,7 +129,8 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
         if (recipe.getRecipeImage() != null) {
-            viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+            Bitmap bitmap = ImageProcessor.convertUriToBitmap(context, recipe.getRecipeImage());
+            viewHolder.imageView.setImageBitmap(bitmap);
         } else {
             Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_picture);
             viewHolder.imageView.setImageBitmap(image);
@@ -140,7 +141,7 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipeViewActivity.class);
 
-                intent.putExtra("id", recipe.getId()); //Adds an extra to the intent, the recipe id
+                intent.putExtra("recipe", recipe); //Adds an extra to the intent, the recipe id
 
                 v.getContext().startActivity(intent); //Starts the view recipe activity
             }
