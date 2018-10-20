@@ -195,15 +195,8 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
 
             List<IndexQuery> queries = new ArrayList<>();
             for (String s : ingredients) {
-                queries.add(new IndexQuery("recipeIngredients", new Query(s)));
+                queries.add(new IndexQuery("dev_recipe", new Query(s).setRestrictSearchableAttributes("recipeIngredients")));
             }
-            algolia.client.multipleQueriesAsync(queries, Client.MultipleQueriesStrategy.NONE, new CompletionHandler() {
-                @Override
-                public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
-                    List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
-                    recipeList.addAll(recipes);
-                }
-            });
 
             for (int i = 0; i < recipes.size(); ++i) {
                 int counter = 0;
@@ -220,6 +213,16 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
                     recipeList.add(recipe);
                 }
             }
+            query = new Query(constraint.toString()).setRestrictSearchableAttributes("recipeIngredients");
+            algolia.index.searchAsync(query, new CompletionHandler() {
+                @Override
+                public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
+                    List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
+                    if (recipes != null) {
+                        recipeList.addAll(recipes);
+                    }
+                }
+            });
 
             recipeResults.values = recipeList;
             recipeResults.count = recipeList.size();
@@ -267,7 +270,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
                 @Override
                 public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
                     List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
-                    recipeList.addAll(recipes);
+                    if (recipes != null) {
+                        recipeList.addAll(recipes);
+                    }
                 }
             });
             recipeResults.values = recipeList;

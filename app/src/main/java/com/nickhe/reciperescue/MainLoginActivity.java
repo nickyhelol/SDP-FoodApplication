@@ -227,7 +227,7 @@ public class MainLoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
-                System.out.println(user.getName()+" "+user.getEmail()+" "+user.getAge());
+//                System.out.println(user.getName()+" "+user.getEmail()+" "+user.getAge());
             }
 
             @Override
