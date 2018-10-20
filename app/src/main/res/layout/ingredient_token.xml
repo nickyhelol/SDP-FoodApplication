@@ -7,12 +7,18 @@
 
     <ToggleButton
         android:id="@+id/ingredientToken"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_weight="0.1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
         android:background="@drawable/token_states"
-        android:checked="true"
-        android:scaleType="centerCrop" />
+        android:checked="true"/>
 
 
 </LinearLayout>

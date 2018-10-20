@@ -48,7 +48,12 @@ public class Recipe implements Parcelable {
 
     public Recipe(String recipeTitle,String[] recipeIngredients,
                   String time, String calories, String[] recipeInstruction){
-
+        this.recipeTitle = recipeTitle;
+        this.recipeIngredients = recipeIngredients;
+        this.time = time;
+        this.calories = calories;
+        this.recipeInstruction = recipeInstruction;
+        this.recipeRating = Rating.THREE;
     }
     /**
      * Proper constructor for the recipe object, contains all the required fields for the recipe.
