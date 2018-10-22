@@ -20,6 +20,7 @@ import com.algolia.search.saas.CompletionHandler;
 import com.algolia.search.saas.IndexQuery;
 import com.algolia.search.saas.Query;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -119,8 +120,7 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
         if (recipe.getRecipeImage() != null) {
-            Bitmap bitmap = ImageProcessor.convertUriToBitmap(context, recipe.getRecipeImage());
-            viewHolder.imageView.setImageBitmap(bitmap);
+            Picasso.get().load(recipe.getRecipeImage()).into(viewHolder.imageView);
         } else {
             Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_picture);
             viewHolder.imageView.setImageBitmap(image);

@@ -2,6 +2,7 @@ package com.nickhe.reciperescue;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -89,8 +92,11 @@ public class RecipeViewActivity extends AppCompatActivity {
      */
     private void updateView()
     {
-        Bitmap image = ImageProcessor.convertUriToBitmap(this, recipe.getRecipeImage());
-        recipeImage.setImageBitmap(image);
+        if (recipe.getRecipeImage() != null) {
+            Picasso.get().load(recipe.getRecipeImage()).into(recipeImage);
+        } else {
+            BitmapFactory.decodeResource(getResources(), R.drawable.no_picture);
+        }
         recipeTitle.setText(recipe.getRecipeTitle());
         publisherTextView.setText(recipe.getRecipePublisher());
         ingredientsTextView.setText(String.valueOf(recipe.getRecipeIngredients().length));
