@@ -102,8 +102,8 @@ public class ProfileFragment extends Fragment {
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
         listView.setAdapter(recipeListAdapter);
-<<<<<<< HEAD
-        setListViewHeightBasedOnChildren(listView);
+
+        //setListViewHeightBasedOnChildren(listView);
         firebaseAuth= FirebaseAuth.getInstance();
         firebaseStorage= FirebaseStorage.getInstance();
 
@@ -122,9 +122,9 @@ public class ProfileFragment extends Fragment {
 
         updateViews();
 
-=======
+
         ListViewProcessor.setListViewHeightBasedOnChildren(listView);
->>>>>>> master
+
 
         //Set clickListener to allow users to select image from their phone as the profile image
         profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -220,7 +220,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Make sure the listView will be set by the correct height based on
      * the number of the items it has.
@@ -282,8 +282,7 @@ public class ProfileFragment extends Fragment {
 
 
     }
-=======
->>>>>>> master
+
 }
 
 
