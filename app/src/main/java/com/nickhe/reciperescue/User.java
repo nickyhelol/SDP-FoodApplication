@@ -16,7 +16,7 @@ public class User {
     private String email;
     private String name;
     private String description;        //New added feature
-    private Uri profileImage;
+    private String profileImage;
     private ArrayList<Recipe> personalRepo;
 
     public User(String name, String age, String email) {
@@ -62,11 +62,11 @@ public class User {
         this.description = description;
     }
 
-    public Uri getProfileImage() {
+    public String getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(Uri profileImage) {
+    public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
 

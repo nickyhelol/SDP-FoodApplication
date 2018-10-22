@@ -198,12 +198,12 @@
                         android:textColor="@android:color/white" />
 
                     <TextView
-                        android:id="@+id/updateButton"
+                        android:id="@+id/updateTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:text="Update database"
                         android:textColor="@android:color/white" />
 
