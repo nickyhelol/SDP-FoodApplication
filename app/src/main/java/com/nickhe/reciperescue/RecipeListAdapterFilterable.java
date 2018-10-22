@@ -2,6 +2,8 @@ package com.nickhe.reciperescue;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,16 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.algolia.search.saas.AlgoliaException;
+import com.algolia.search.saas.Client;
+import com.algolia.search.saas.CompletionHandler;
+import com.algolia.search.saas.IndexQuery;
+import com.algolia.search.saas.Query;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +40,11 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
     private List<Recipe> filteredRecipes;
     private RecipeNameFilter recipeNameFilter;
     private RecipeIngredientsFilter recipeIngredientsFilter;
+    private FirebaseFirestore firebaseFirestore;
+    private Query query;
+    private Algolia algolia;
+    private SearchResultsJSONParser searchResultsJSONParser;
+    private Activity context;
 
     /**
      * Public constructor for the RecipeListAdapter
@@ -37,10 +54,15 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
      * @param recipes Recipe list from the repository
      */
     public RecipeListAdapterFilterable(Activity context, List<Recipe> recipes) {
+        this.context = context;
         originalRecipes = recipes;
         filteredRecipes = recipes;
         recipeNameFilter = new RecipeNameFilter();
         recipeIngredientsFilter = new RecipeIngredientsFilter();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        algolia = new Algolia();
+        searchResultsJSONParser = new SearchResultsJSONParser();
+
     }
 
     /**
@@ -97,13 +119,19 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
         ViewHolder viewHolder = (ViewHolder) holder;
         final Recipe recipe = filteredRecipes.get(position);
         viewHolder.textView.setText(recipe.getRecipeTitle());
-        viewHolder.imageView.setImageBitmap(recipe.getRecipeImage());
+        if (recipe.getRecipeImage() != null) {
+            Picasso.get().load(recipe.getRecipeImage()).into(viewHolder.imageView);
+        } else {
+            Bitmap image = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_picture);
+            viewHolder.imageView.setImageBitmap(image);
+        }
+
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() { //Adds an onclick listener for every recipe image in the adapter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipeViewActivity.class);
 
-                intent.putExtra("id", recipe.getId()); //Adds an extra to the intent, the recipe id
+                intent.putExtra("recipe", recipe); //Adds an extra to the intent, the recipe id
 
                 v.getContext().startActivity(intent); //Starts the view recipe activity
             }
@@ -163,7 +191,12 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             FilterResults recipeResults = new FilterResults();
             List<Recipe> recipes = originalRecipes;
             Recipe recipe;
-            ArrayList<Recipe> recipeList = new ArrayList<>();
+            final List<Recipe> recipeList = new ArrayList<>();
+
+            List<IndexQuery> queries = new ArrayList<>();
+            for (String s : ingredients) {
+                queries.add(new IndexQuery("dev_recipe", new Query(s).setRestrictSearchableAttributes("recipeIngredients")));
+            }
 
             for (int i = 0; i < recipes.size(); ++i) {
                 int counter = 0;
@@ -180,6 +213,16 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
                     recipeList.add(recipe);
                 }
             }
+            query = new Query(constraint.toString()).setRestrictSearchableAttributes("recipeIngredients");
+            algolia.index.searchAsync(query, new CompletionHandler() {
+                @Override
+                public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
+                    List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
+                    if (recipes != null) {
+                        recipeList.addAll(recipes);
+                    }
+                }
+            });
 
             recipeResults.values = recipeList;
             recipeResults.count = recipeList.size();
@@ -213,9 +256,9 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
 
             FilterResults recipeResults = new FilterResults();
             List<Recipe> recipes = originalRecipes;
-            ArrayList<Recipe> recipeList = new ArrayList<>();
-
+            final List<Recipe> recipeList = new ArrayList<>();
             Recipe recipe;
+            query = new Query(nameFilter).setRestrictSearchableAttributes("recipeTitle");
 
             for (int i = 0; i < recipes.size(); ++i) {
                 recipe = recipes.get(i);
@@ -223,7 +266,15 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
                     recipeList.add(recipe);
                 }
             }
-
+            algolia.index.searchAsync(query, new CompletionHandler() {
+                @Override
+                public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
+                    List<Recipe> recipes = searchResultsJSONParser.parseResults(jsonObject);
+                    if (recipes != null) {
+                        recipeList.addAll(recipes);
+                    }
+                }
+            });
             recipeResults.values = recipeList;
             recipeResults.count = recipeList.size();
 
@@ -237,6 +288,5 @@ public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements
             notifyDataSetChanged();
         }
     }
-
 }
 

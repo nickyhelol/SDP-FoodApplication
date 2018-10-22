@@ -19,14 +19,14 @@ public class User {
     private Uri profileImage;
     private ArrayList<Recipe> personalRepo;
 
-    public User(){
-
-    }
-
     public User(String name, String age, String email) {
         this.age = age;
         this.email = email;
         this.name = name;
+
+    }
+
+    public User(){
 
     }
 

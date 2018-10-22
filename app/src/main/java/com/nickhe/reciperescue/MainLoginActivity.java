@@ -1,5 +1,6 @@
 package com.nickhe.reciperescue;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +19,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +35,7 @@ import java.util.regex.Pattern;
  */
 public class MainLoginActivity extends AppCompatActivity {
 
+    public static User user;
     private EditText userEmail;
     private EditText userPassword;
     private TextView screenInfo;
@@ -38,8 +46,6 @@ public class MainLoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private TextView forgotPwView;
     private TextView errorInfoView;
-
-
 
     @Override
 
@@ -54,10 +60,15 @@ public class MainLoginActivity extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         progressDialog= new ProgressDialog(this);
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+<<<<<<< HEAD
         if(user!=null){
             UserDataManager.retrieveUSer(firebaseAuth);
+=======
+        if(firebaseUser!=null){
+            getUser();
+>>>>>>> master
             finish();//meaning if there is no user then it will stay at the main activity and have to enter sign in details again.
             startActivity(new Intent(MainLoginActivity.this,MainMenuActivity.class));
         }
@@ -134,7 +145,6 @@ public class MainLoginActivity extends AppCompatActivity {
             errorInfoView.setText("Password must be at least 6 character");
         }
         else {
-
             errorInfoView.setText("");
             progressDialog.setMessage("Logging in ");
             progressDialog.show();
@@ -170,10 +180,13 @@ public class MainLoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser= firebaseAuth.getInstance().getCurrentUser();
         Boolean flag= firebaseUser.isEmailVerified();
 
-
         //if email is verified then link this to the second activity
         if(flag){
+<<<<<<< HEAD
             UserDataManager.retrieveUSer(firebaseAuth);
+=======
+            getUser();
+>>>>>>> master
             finish();//finishes this main activity and directs it to the second activity.
             startActivity(new Intent(MainLoginActivity.this, MainMenuActivity.class));
         }else{//if the email is not verified then send a toast message to user and sign out from the firebase
@@ -211,7 +224,26 @@ public class MainLoginActivity extends AppCompatActivity {
         return password.length() >= 6;
     }
 
+    /**
+     * Retrieve the user from the database
+     */
+    public void getUser()
+    {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference(firebaseAuth.getUid());
 
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                System.out.println(user.getName()+" "+user.getEmail()+" "+user.getAge());
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

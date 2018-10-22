@@ -1,6 +1,8 @@
 package com.nickhe.reciperescue;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -21,9 +25,6 @@ import java.util.List;
 public class RecipeViewActivity extends AppCompatActivity {
 
     Recipe recipe;
-    String[] ingredients;
-    String[] instructions;
-
     ImageView recipeImage;
     TextView recipeTitle;
     TextView publisherTextView;
@@ -38,34 +39,26 @@ public class RecipeViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_view);
 
-        int id = getIntent().getIntExtra("id", -1);
+        receiveData();
+        initializeViews();
+        updateView();
+        initializeIngredientsListView();
+        initializeInstructionView();
+    }
 
-        recipe = null;
-
-        if (id != -1) {
-            recipe = HomeFragment.fakeRecipeRepository.getFakeRepo().get(id);
-            ingredients = recipe.getRecipeIngredients();
-            instructions = recipe.getRecipeInstruction();
+    private void initializeInstructionView(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0;i<recipe.getRecipeInstruction().length;i++)
+        {
+            stringBuilder.append((i+1)+". "+recipe.getRecipeInstruction()[i]+"\n\n");
         }
 
-        recipeImage = findViewById(R.id.recipeImage_viewRecipeActivity);
-        recipeTitle = findViewById(R.id.recipeTitleView);
-        publisherTextView = findViewById(R.id.publisherTextView);
-        ingredientsTextView = findViewById(R.id.ingredients_recipeViewActivity);
-        caloriesTextView = findViewById(R.id.calorieTextView);
-        timeTextView = findViewById(R.id.timeTextView);
-        ingredientsListView = findViewById(R.id.ingredientListView);
-        instructionTextView = findViewById(R.id.instructionsTextView);
+        instructionTextView.setText(stringBuilder.toString());
+    }
 
-        recipeImage.setImageBitmap(recipe.getRecipeImage());
-        recipeTitle.setText(recipe.getRecipeTitle());
-        publisherTextView.setText(recipe.getRecipePublisher());
-        ingredientsTextView.setText(String.valueOf(ingredients.length));
-        caloriesTextView.setText(recipe.getCalories());
-        timeTextView.setText(recipe.getTime());
-
+    private void initializeIngredientsListView(){
         final ArrayAdapter<String> ingredientsArrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, ingredients) {
+                (this, android.R.layout.simple_list_item_1, recipe.getRecipeIngredients()) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 // Get the current item from ListView
@@ -80,43 +73,43 @@ public class RecipeViewActivity extends AppCompatActivity {
         };
 
         ingredientsListView.setAdapter(ingredientsArrayAdapter);
-        setListViewHeightBasedOnChildren(ingredientsListView);
+        ListViewProcessor.setListViewHeightBasedOnChildren(ingredientsListView);
+    }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<instructions.length;i++)
-        {
-            stringBuilder.append((i+1)+". "+instructions[i]+"\n\n");
-        }
-
-        instructionTextView.setText(stringBuilder.toString());
-
+    private void initializeViews(){
+        recipeImage = findViewById(R.id.recipeImage_viewRecipeActivity);
+        recipeTitle = findViewById(R.id.recipeTitleView);
+        publisherTextView = findViewById(R.id.publisherTextView);
+        ingredientsTextView = findViewById(R.id.ingredients_recipeViewActivity);
+        caloriesTextView = findViewById(R.id.calorieTextView);
+        timeTextView = findViewById(R.id.timeTextView);
+        ingredientsListView = findViewById(R.id.ingredientListView);
+        instructionTextView = findViewById(R.id.instructionsTextView);
     }
 
     /**
-     * Make sure the listView will be set by the correct height based on
-     * the number of the items it has.
-     *
-     * @param listView
+     * Update view based on the info of the recipe selected
      */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
+    private void updateView()
+    {
+        if (recipe.getRecipeImage() != null) {
+            Picasso.get().load(recipe.getRecipeImage()).into(recipeImage);
+        } else {
+            BitmapFactory.decodeResource(getResources(), R.drawable.no_picture);
         }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
+        recipeTitle.setText(recipe.getRecipeTitle());
+        publisherTextView.setText(recipe.getRecipePublisher());
+        ingredientsTextView.setText(String.valueOf(recipe.getRecipeIngredients().length));
+        caloriesTextView.setText(recipe.getCalories());
+        timeTextView.setText(recipe.getTime());
+    }
+
+    /**
+     * RECEIVE DATA FROM FRAGMENT
+     */
+    private void receiveData() {
+        Intent i = getIntent();
+        recipe = i.getParcelableExtra("recipe");
     }
 
 

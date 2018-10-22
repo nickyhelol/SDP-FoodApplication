@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,11 +87,6 @@ public class SearchFragment extends Fragment {
             }
         });
         recipeSearchView = searchView.findViewById(R.id.recipeSearchView);
-
-//        RecyclerView recipeRecyclerView = searchView.findViewById(R.id.searchRecyclerView);
-//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
-//        recipeRecyclerView.setLayoutManager(staggeredGridLayoutManager);
-//        recipeRecyclerView.setAdapter(ingredientTokensAdapter);
 
         recipeSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -200,6 +196,10 @@ public class SearchFragment extends Fragment {
         ingredientToken.setTextOff(buttonText);
         ingredientToken.setTextOn(buttonText);
         ingredientToken.setBackgroundResource(R.drawable.token_states);
+        ingredientToken.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        ingredientToken.setGravity(Gravity.CENTER);
+        ingredientToken.setPadding(5,5,5,5);
+        ingredientToken.setMaxHeight(10);
         flowLayout.addView(ingredientToken);
         ++numberOfIngredients;
     }

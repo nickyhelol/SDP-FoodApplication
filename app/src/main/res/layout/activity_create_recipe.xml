@@ -19,6 +19,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="Add Image" />
+
+            <ImageView
+                android:id="@+id/recipeAddImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:src="@android:drawable/ic_input_add" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

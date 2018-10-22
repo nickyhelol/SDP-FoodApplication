@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,6 @@ public class FakeRecipeRepository {
             , R.drawable.food5, R.drawable.food6, R.drawable.food7, R.drawable.food8};
 
     public FakeRecipeRepository(Activity context)
-
     {
         fakeRepo = new ArrayList<>();
         this.context = context;
@@ -45,17 +45,16 @@ public class FakeRecipeRepository {
      * Update the FakeRecipeRepository
      */
     public void initializeRepo() {
-        Bitmap food1 = BitmapFactory.decodeResource(context.getResources(), images[0]);
-        Bitmap food2 = BitmapFactory.decodeResource(context.getResources(), images[1]);
-        Bitmap food3 = BitmapFactory.decodeResource(context.getResources(), images[2]);
-        Bitmap food4 = BitmapFactory.decodeResource(context.getResources(), images[3]);
-        Bitmap food5 = BitmapFactory.decodeResource(context.getResources(), images[4]);
-        Bitmap food6 = BitmapFactory.decodeResource(context.getResources(), images[5]);
-        Bitmap food7 = BitmapFactory.decodeResource(context.getResources(), images[6]);
-        Bitmap food8 = BitmapFactory.decodeResource(context.getResources(), images[7]);
+        Uri food1 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[0]);
+        Uri food2 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[1]);
+        Uri food3 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[2]);
+        Uri food4 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[3]);
+        Uri food5 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[4]);
+        Uri food6 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[5]);
+        Uri food7 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[6]);
+        Uri food8 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[7]);
 
         Recipe r1 = new Recipe(
-                0,
                 "Chicken And Lemon Kebabs",
                 new String[]{
                         "460 grams chicken thigh fillets",
@@ -82,7 +81,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r2 = new Recipe(
-                1,
                 "Asian Chicken Salad With Ginger Sesame Dressing",
                 new String[]{
                         "1/4 cup rice wine vinegar",
@@ -111,7 +109,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r3 = new Recipe(
-                2,
                 "Grilled Salmon",
                 new String[]{
                         "salt",
@@ -135,7 +132,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r4 = new Recipe(
-                3,
                 "Spicy Lime Grilled Chicken",
                 new String[]{
                         "6 boneless, skinless chicken breast halves",
@@ -163,7 +159,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r5 = new Recipe(
-                4,
                 "Lightened Up Curry Egg Salad",
                 new String[]{
                         "8 large eggs",
@@ -186,7 +181,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r6 = new Recipe(
-                5,
                 "Barbecue Chicken Pizza",
                 new String[]{
                         "1 pizza crust",
@@ -209,7 +203,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r7 = new Recipe(
-                6,
                 "Thai Pineapple Fried Rice",
                 new String[]{
                         "1 cup quinoa",
@@ -236,7 +229,6 @@ public class FakeRecipeRepository {
         );
 
         Recipe r8 = new Recipe(
-                7,
                 "Very Veggie Fried Rice",
                 new String[]{
                         "3 cups brown rice",
@@ -274,7 +266,6 @@ public class FakeRecipeRepository {
         getFakeRepo().add(r6);
         getFakeRepo().add(r7);
         getFakeRepo().add(r8);
-
     }
 
     public List<Recipe> getFakeRepo() {
