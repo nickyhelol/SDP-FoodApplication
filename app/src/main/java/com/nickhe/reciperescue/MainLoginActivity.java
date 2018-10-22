@@ -57,6 +57,7 @@ public class MainLoginActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         if(user!=null){
+            UserDataManager.retrieveUSer(firebaseAuth);
             finish();//meaning if there is no user then it will stay at the main activity and have to enter sign in details again.
             startActivity(new Intent(MainLoginActivity.this,MainMenuActivity.class));
         }
@@ -172,6 +173,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
         //if email is verified then link this to the second activity
         if(flag){
+            UserDataManager.retrieveUSer(firebaseAuth);
             finish();//finishes this main activity and directs it to the second activity.
             startActivity(new Intent(MainLoginActivity.this, MainMenuActivity.class));
         }else{//if the email is not verified then send a toast message to user and sign out from the firebase
