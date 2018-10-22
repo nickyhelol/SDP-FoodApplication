@@ -50,7 +50,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <EditText
+                <TextView
                     android:id="@+id/nameEditText"
                     android:layout_width="100dp"
                     android:layout_height="33dp"
@@ -59,7 +59,6 @@
                     android:layout_marginStart="8dp"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:text="Nick He"
                     android:textColor="@android:color/background_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -196,6 +195,16 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="4dp"
                         android:text="New Recipe"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/updateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Update database"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
