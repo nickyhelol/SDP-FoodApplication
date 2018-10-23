@@ -40,6 +40,7 @@ public class ProfileFragment extends Fragment {
     private static int CHOOSE_IMAGE = 123;
     public final int READ_IMAGE_PERMISSION = 0;
     public final int PICK_IMAGE_RESULT = 1;
+    TextView updateTextView;
     TextView updateButton;
     ImageView profileImageView;
     ListView listView;
