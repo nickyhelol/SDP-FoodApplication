@@ -62,7 +62,6 @@ public class MainLoginActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-
         if(user!=null){
             UserDataManager.retrieveUSer(firebaseAuth);
             finish();//meaning if there is no user then it will stay at the main activity and have to enter sign in details again.
