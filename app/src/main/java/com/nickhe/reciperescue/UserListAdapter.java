@@ -4,32 +4,27 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class UserListAdapter extends ArrayAdapter<User>
-{
+public class UserListAdapter extends ArrayAdapter<User> {
     private List<User> users;
     private Activity context;
-
-    public List<User> getRecipes() {
-        return users;
-    }
 
     public UserListAdapter(Activity context, List<User> users) {
         super(context, R.layout.user_row, R.id.userTextView, users);
         this.users = users;
         this.context = context;
+    }
+
+    public List<User> getRecipes() {
+        return users;
     }
 
     @NonNull
@@ -39,14 +34,13 @@ public class UserListAdapter extends ArrayAdapter<User>
         View row = convertView;
         ViewHolder viewHolder = null;
 
-        if(row == null)
-        {
+        if (row == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
             row = layoutInflater.inflate(R.layout.user_row, parent, false);
             viewHolder = new ViewHolder(row);
             row.setTag(viewHolder);
-        }else {
-            viewHolder = (ViewHolder)row.getTag();
+        } else {
+            viewHolder = (ViewHolder) row.getTag();
         }
 
         Bitmap bitmap = ImageProcessor.convertUriToBitmap(context, users.get(position).getProfileImage());
@@ -57,14 +51,12 @@ public class UserListAdapter extends ArrayAdapter<User>
         return row;
     }
 
-    class ViewHolder
-    {
+    class ViewHolder {
         TextView textView;
         TextView scoreView;
         ImageView imageView;
 
-        public ViewHolder(View view)
-        {
+        public ViewHolder(View view) {
             textView = view.findViewById(R.id.userTextView);
             scoreView = view.findViewById(R.id.scoreTextView);
             imageView = view.findViewById(R.id.userImageView);

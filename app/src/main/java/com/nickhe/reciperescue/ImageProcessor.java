@@ -8,8 +8,7 @@ import android.provider.MediaStore;
 import java.io.IOException;
 
 public class ImageProcessor {
-    public static Bitmap convertUriToBitmap(Activity context, Uri uri)
-    {
+    public static Bitmap convertUriToBitmap(Activity context, Uri uri) {
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 

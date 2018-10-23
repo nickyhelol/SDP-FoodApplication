@@ -1,11 +1,8 @@
 package com.nickhe.reciperescue;
 
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,15 +13,13 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONObject;
 
-import java.net.URI;
-
 public class RecipeJSONParser {
     private StorageReference firebaseStorage;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private StorageReference imageReference;
 
-    public RecipeJSONParser(){
+    public RecipeJSONParser() {
         firebaseStorage = FirebaseStorage.getInstance().getReference();
         firebaseDatabase = FirebaseDatabase.getInstance();
     }
@@ -44,7 +39,7 @@ public class RecipeJSONParser {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user= dataSnapshot.getValue(User.class);
+                User user = dataSnapshot.getValue(User.class);
                 recipePublisherName[0] = user.getName();
             }
 

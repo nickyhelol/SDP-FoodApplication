@@ -35,12 +35,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * CreateRecipeActivity class
+ * An activity that users of the application can use to upload a recipe to the database.
+ * This has its own view and takes the recipe fields and uploads it, including the recipe image.
+ * <p>
+ * Uploads to both Firebase and Algolia
+ */
 public class CreateRecipeActivity extends AppCompatActivity {
 
-    public final int READ_IMAGE_PERMISSION = 0;
     public final int PICK_IMAGE_RESULT = 1;
     private FirebaseFirestore recipeDB;
-    private Recipe recipe;
     private FirebaseAuth firebaseAuth;
     private HashMap<String, Object> recipeSubmitFireStore = new HashMap();
     private JSONObject recipeSubmit;
@@ -56,9 +61,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
         getRecipeFields(view);
 
-
-        //TODO IMAGE
-
         recipeDB.collection("recipes")
                 .add(recipeSubmitFireStore)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -69,7 +71,13 @@ public class CreateRecipeActivity extends AppCompatActivity {
                             public void requestCompleted(JSONObject jsonObject, AlgoliaException e) {
                                 recipeID = jsonObject.optString("objectID");
                                 imageStorageReference = storageReference.child("recipes").child(recipeID);
-                                UploadTask uploadTask = imageStorageReference.putFile(imagePath);
+
+                                // Check if recipe image is null
+                                if (imagePath == null) {
+                                    imagePath = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/no_picture.png"); // Sets to default no_picture image
+                                }
+
+                                UploadTask uploadTask = imageStorageReference.putFile(imagePath); //Uploads image to Firebase storage
                                 uploadTask.addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
@@ -79,6 +87,8 @@ public class CreateRecipeActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         Toast.makeText(getBaseContext(), "Recipe pic uploading completed", Toast.LENGTH_SHORT).show();
+
+                                        // Takes the download link and stores it in the database
                                         Task<Uri> downloadLinkTask = taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
                                             public void onSuccess(Uri uri) {
@@ -96,7 +106,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
                                                 }
                                             }
                                         });
-
                                     }
                                 });
                             }
@@ -112,6 +121,13 @@ public class CreateRecipeActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * getRecipeFields method retrieves the fields needed for the recipe object creation, this does
+     * not include the image used for the recipe.
+     *
+     * @param view
+     * @throws JSONException
+     */
     private void getRecipeFields(View view) throws JSONException {
         EditText recipeTitleEditText = findViewById(R.id.recipeTitleInput);
         String recipeTitle = recipeTitleEditText.getText().toString();
@@ -158,6 +174,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
         recipeSubmit.put("recipePublisher", firebaseAuth.getCurrentUser().getUid());
     }
 
+    /**
+     * Adds an extra ingredient field to the view
+     *
+     * @param view
+     */
     public void addIngredient(View view) {
         LinearLayout layout = findViewById(R.id.recipeIngredientsInputLayout);
         EditText text = new EditText(getApplicationContext());
@@ -165,6 +186,11 @@ public class CreateRecipeActivity extends AppCompatActivity {
         layout.addView(text);
     }
 
+    /**
+     * Adds an extra instruction field to the view
+     *
+     * @param view
+     */
     public void addInstruction(View view) {
         LinearLayout layout = findViewById(R.id.recipeInstructionsInputLayout);
         EditText text = new EditText(getApplicationContext());
@@ -199,7 +225,6 @@ public class CreateRecipeActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         switch (requestCode) {
             case PICK_IMAGE_RESULT:
                 if (resultCode == Activity.RESULT_OK) {

@@ -9,11 +9,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * UserDataManager class.
+ * Manages user login when application is opened.
+ */
 public class UserDataManager {
 
     private static User user;
 
-    public static void retrieveUSer(FirebaseAuth firebaseAuth){
+    public static void retrieveUSer(FirebaseAuth firebaseAuth) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -29,7 +33,7 @@ public class UserDataManager {
         });
     }
 
-    public static User getUser(){
+    public static User getUser() {
         return user;
     }
 }

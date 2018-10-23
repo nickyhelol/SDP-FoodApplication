@@ -1,7 +1,6 @@
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
@@ -30,10 +29,10 @@ public class PasswordUpdate extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_update);
 
-        updatePasswordButton= findViewById(R.id.updatePasswordBtn);
+        updatePasswordButton = findViewById(R.id.updatePasswordBtn);
         updatedPassword = findViewById(R.id.newPasswordText);
 
-        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //adding onclick listener for update password Button
@@ -41,17 +40,17 @@ public class PasswordUpdate extends Activity {
             @Override
             public void onClick(View v) {
                 //creating new variable for password String
-                String newPw= updatedPassword.getText().toString();
+                String newPw = updatedPassword.getText().toString();
                 firebaseUser.updatePassword(newPw).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //display a toast message that password is updated and password is changed
-                            Toast.makeText(PasswordUpdate.this,"Password Updated", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PasswordUpdate.this, "Password Updated", Toast.LENGTH_SHORT).show();
                             //finish this activity
                             finish();
-                        }else{
-                            Toast.makeText(PasswordUpdate.this,"Password Updating failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(PasswordUpdate.this, "Password Updating failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -64,7 +63,7 @@ public class PasswordUpdate extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
         }

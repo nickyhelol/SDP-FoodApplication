@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.algolia.search.saas.AlgoliaException;
-import com.algolia.search.saas.Client;
 import com.algolia.search.saas.CompletionHandler;
 import com.algolia.search.saas.IndexQuery;
 import com.algolia.search.saas.Query;
@@ -33,6 +32,7 @@ import java.util.List;
  * b. Recipe Ingredient(s)
  * <p>
  * On-click listener for each recipe item is included in the custom ViewHolder class.
+ * Searches both database and fake repository.
  */
 public class RecipeListAdapterFilterable extends RecyclerView.Adapter implements Filterable {
 

@@ -10,6 +10,7 @@ public class ListViewProcessor {
     /**
      * Make sure the listView will be set by the correct height based on
      * the number of the items it has.
+     *
      * @param listView
      */
     public static void setListViewHeightBasedOnChildren(ListView listView) {

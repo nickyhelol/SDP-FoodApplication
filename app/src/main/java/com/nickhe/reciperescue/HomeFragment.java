@@ -2,8 +2,6 @@ package com.nickhe.reciperescue;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,20 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
+    FakeRecipeRepository fakeRecipeRepository;
     private View view;
     private ListView listView;
-//    RecipeRepository recipeRepository;
-    FakeRecipeRepository fakeRecipeRepository;
-//    RecipeDataManager recipeDataManager;
 
     public HomeFragment() {
 
@@ -45,16 +39,9 @@ public class HomeFragment extends Fragment {
 
         initialize();
         setListViewOnClickListener();
-//        fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
-//        recipeDataManager = new RecipeDataManager();
-//        for(Recipe recipe: fakeRecipeRepository.getFakeRepo()){
-//            recipeDataManager.saveRecipeToMap(recipe);
-//        }
-
     }
 
-    private void setListViewOnClickListener()
-    {
+    private void setListViewOnClickListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,7 +56,7 @@ public class HomeFragment extends Fragment {
     /**
      * Initialize views and other fields
      */
-    private void initialize(){
+    private void initialize() {
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
         listView = view.findViewById(R.id.home_recipeList);
         RecipeListAdapter recipeListAdapter = new RecipeListAdapter(getActivity(), fakeRecipeRepository.getFakeRepo());
@@ -78,11 +65,9 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     *
      * @param recipe
      */
-    private void startRecipeViewActivity(Recipe recipe)
-    {
+    private void startRecipeViewActivity(Recipe recipe) {
         Intent i = new Intent(getActivity().getBaseContext(), RecipeViewActivity.class);
         i.putExtra("recipe", recipe);
         startActivity(i);
