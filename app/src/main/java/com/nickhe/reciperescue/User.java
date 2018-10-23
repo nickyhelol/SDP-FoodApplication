@@ -66,11 +66,11 @@ public class User {
         this.description = description;
     }
 
-    public String getProfileImage() {
+    public Uri getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(String profileImage) {
+    public void setProfileImage(Uri profileImage) {
         this.profileImage = profileImage;
     }
 
