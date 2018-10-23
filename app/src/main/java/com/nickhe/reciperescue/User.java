@@ -17,14 +17,21 @@ public class User {
     private String name;
     private String description;        //New added feature
     private Uri profileImage;
-    private ArrayList<Recipe> personalRepo;
+    private ArrayList<User> personalRepo;
+    private int score;
 
     public User(String name, String age, String email) {
         this.age = age;
         this.email = email;
         this.name = name;
-
     }
+
+    public User(String name, int score, Uri profileImage){
+        this.name = name;
+        this.score = score;
+        this.profileImage = profileImage;
+    }
+
 
     public User(){
 
@@ -70,11 +77,19 @@ public class User {
         this.profileImage = profileImage;
     }
 
-    public ArrayList<Recipe> getPersonalRepo() {
+    public ArrayList<User> getPersonalRepo() {
         return personalRepo;
     }
 
-    public void setPersonalRepo(ArrayList<Recipe> personalRepo) {
+    public void setPersonalRepo(ArrayList<User> personalRepo) {
         this.personalRepo = personalRepo;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
