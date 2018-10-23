@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeFragmentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RankListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <TextView
-        android:id="@+id/textView3"
+    <ListView
+        android:id="@+id/RankListListView"
         android:layout_width="match_parent"
-        android:layout_height="213dp"
-        android:gravity="center"
-        android:text="Rank List"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:gravity="center"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/rankList_RankList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+        </ListView>
+
+    </ScrollView>
+
 </FrameLayout>
