@@ -180,8 +180,6 @@ public class RegisterToFirebaseActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {//if the task is successfull, show the display message
                         //calling method
-
-                        // sendUserDataToDatabase();
                         Toast.makeText(RegisterToFirebaseActivity.this, "Successfully Registered, Verification mail sent", Toast.LENGTH_LONG).show();
                         firebaseAuth.signOut();//once the user has created firebase username and password, user is actually
                         //signed in into the firebase so we need to sign them out. we don't want user to enter the app without logging

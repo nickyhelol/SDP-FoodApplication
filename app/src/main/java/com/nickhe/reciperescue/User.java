@@ -23,10 +23,10 @@ public class User {
         this.name = name;
     }
 
-    public User(String name, int score, Uri profileImage) {
+
+    public User(String name, int score){
         this.name = name;
         this.score = score;
-        this.profileImage = profileImage;
     }
 
 
