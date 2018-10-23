@@ -67,13 +67,12 @@ public class ProfileFragment extends Fragment {
 
 
     public ProfileFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         return view;
@@ -102,12 +101,12 @@ public class ProfileFragment extends Fragment {
         firebaseStorage= FirebaseStorage.getInstance();
 
         storageReference= firebaseStorage.getReference();
-//        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 
         StorageReference storageReference1 = firebaseStorage.getReference();
         storageReference1.child(firebaseAuth.getUid()).child("Images").child("Profile Picture").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                if(uri != null)
                 Picasso.get().load(uri).fit().centerCrop().into(profileImageView);
 
             }
@@ -161,8 +160,6 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
-
     public void updateViews() {
         System.out.println(UserDataManager.getUser().getName());
         name.setText(UserDataManager.getUser().getName());
@@ -213,34 +210,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
-    /**
-     * Make sure the listView will be set by the correct height based on
-     * the number of the items it has.
-     *
-     * @param listView
-     */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
-
     /**
      * This method creates the database reference per user and sends it to the firebase database.
      */
@@ -277,41 +246,3 @@ public class ProfileFragment extends Fragment {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-//    /**
-//     * When user is done with the activity which can be image,audio,video,documents activity then we need to get result
-//     * and convert that into the required type which can be image, this is image here.
-//     * @param requestCode
-//     * @param resultCode
-//     * @param data
-//     */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        //checking if the request to choose image has been successfull
-//        if (requestCode==CHOOSE_IMAGE && resultCode ==RESULT_OK && data.getData()!=null){
-//            profilePicPath= data.getData();//the data is in the form of a path so we need to convert it to image
-//
-//            //Bitmap will convert the path into the image form
-//            //https://developer.android.com/reference/android/graphics/Bitmap
-//            try {
-//                Bitmap bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),profilePicPath);
-//                //now setting the bitmap to the profile pic,sets the content of the bitmap as imageView.
-//                profileImageView.setImageBitmap(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-//}
-

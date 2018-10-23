@@ -11,69 +11,47 @@ import java.util.List;
 
 public class FakeUserRepository {
 
-    //Singleton fake repository
     private static FakeUserRepository fakeUserRepository;
-    private List<User> fakeRepo;
-    Activity context;
-    int[] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3, R.drawable.food4
-            , R.drawable.food5, R.drawable.food6, R.drawable.food7, R.drawable.food8};
+    private ArrayList<User> fakeUserRepo = new ArrayList<>();
 
-    public FakeUserRepository(Activity context)
-    {
-        fakeRepo = new ArrayList<>();
-        this.context = context;
+    private FakeUserRepository(){
         initializeRepo();
     }
 
-    /**
-     * Return and initialize a FakeRecipeRepository and make sure
-     * that there will be only one instance of FakeRecipeRepository.
-     *
-     * @param context
-     * @return
-     */
-    public static synchronized FakeUserRepository getFakeUserRepository(Activity context)
-    {
-        if (fakeUserRepository == null) {
-            fakeUserRepository = new FakeUserRepository(context);
+    private void initializeRepo() {
+
+        User u1 = new User("James", 100);
+        User u2 = new User("Alex", 90);
+        User u3 = new User("Tony", 70);
+        User u4 = new User("Jackson", 50);
+        User u5 = new User("Carl", 60);
+        User u6 = new User("Johnny", 75);
+        User u7 = new User("Leon", 40);
+        User u8 = new User("Nick", 30);
+        User u9 = new User("Micheal", 60);
+
+        fakeUserRepo.add(u1);
+        fakeUserRepo.add(u2);
+        fakeUserRepo.add(u3);
+        fakeUserRepo.add(u4);
+        fakeUserRepo.add(u5);
+        fakeUserRepo.add(u6);
+        fakeUserRepo.add(u7);
+        fakeUserRepo.add(u8);
+        fakeUserRepo.add(u9);
+    }
+
+    public static synchronized FakeUserRepository getFakeUserRepository(){
+        if(fakeUserRepository == null){
+            fakeUserRepository = new FakeUserRepository();
         }
 
         return fakeUserRepository;
     }
 
-    /**
-     * Update the FakeRecipeRepository
-     */
-    public void initializeRepo() {
-        Uri food1 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[0]);
-        Uri food2 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[1]);
-        Uri food3 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[2]);
-        Uri food4 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[3]);
-        Uri food5 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[4]);
-        Uri food6 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[5]);
-        Uri food7 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[6]);
-        Uri food8 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[7]);
-
-        User u1 = new User("User 1", 10000, food8);
-        User u2 = new User("User 2", 9500, food7);
-        User u3 = new User("User 3", 8000, food6);
-        User u4 = new User("User 4", 6000, food5);
-        User u5 = new User("User 5", 6500, food4);
-        User u6 = new User("User 6", 3500, food2);
-        User u7 = new User("User 7", 2000, food3);
-        User u8 = new User("User 8", 1000, food1);
-
-        getFakeRepo().add(u1);
-        getFakeRepo().add(u2);
-        getFakeRepo().add(u3);
-        getFakeRepo().add(u4);
-        getFakeRepo().add(u5);
-        getFakeRepo().add(u6);
-        getFakeRepo().add(u7);
-        getFakeRepo().add(u8);
+    public ArrayList<User> getFakeUserRepo() {
+        return fakeUserRepo;
     }
 
-    public List<User> getFakeRepo() {
-        return fakeRepo;
-    }
+
 }

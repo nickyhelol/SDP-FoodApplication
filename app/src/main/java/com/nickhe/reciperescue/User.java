@@ -26,10 +26,9 @@ public class User {
         this.name = name;
     }
 
-    public User(String name, int score, Uri profileImage){
+    public User(String name, int score){
         this.name = name;
         this.score = score;
-        this.profileImage = profileImage;
     }
 
 
@@ -69,11 +68,11 @@ public class User {
         this.description = description;
     }
 
-    public String getProfileImage() {
+    public Uri getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(String profileImage) {
+    public void setProfileImage(Uri profileImage) {
         this.profileImage = profileImage;
     }
 
