@@ -1,25 +1,18 @@
 package com.nickhe.reciperescue;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 
 public class RecipeViewActivity extends AppCompatActivity {
@@ -46,17 +39,16 @@ public class RecipeViewActivity extends AppCompatActivity {
         initializeInstructionView();
     }
 
-    private void initializeInstructionView(){
+    private void initializeInstructionView() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<recipe.getRecipeInstruction().length;i++)
-        {
-            stringBuilder.append((i+1)+". "+recipe.getRecipeInstruction()[i]+"\n\n");
+        for (int i = 0; i < recipe.getRecipeInstruction().length; i++) {
+            stringBuilder.append((i + 1) + ". " + recipe.getRecipeInstruction()[i] + "\n\n");
         }
 
         instructionTextView.setText(stringBuilder.toString());
     }
 
-    private void initializeIngredientsListView(){
+    private void initializeIngredientsListView() {
         final ArrayAdapter<String> ingredientsArrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, recipe.getRecipeIngredients()) {
             @Override
@@ -76,7 +68,7 @@ public class RecipeViewActivity extends AppCompatActivity {
         ListViewProcessor.setListViewHeightBasedOnChildren(ingredientsListView);
     }
 
-    private void initializeViews(){
+    private void initializeViews() {
         recipeImage = findViewById(R.id.recipeImage_viewRecipeActivity);
         recipeTitle = findViewById(R.id.recipeTitleView);
         publisherTextView = findViewById(R.id.publisherTextView);
@@ -90,8 +82,7 @@ public class RecipeViewActivity extends AppCompatActivity {
     /**
      * Update view based on the info of the recipe selected
      */
-    private void updateView()
-    {
+    private void updateView() {
         if (recipe.getRecipeImage() != null) {
             Picasso.get().load(recipe.getRecipeImage()).into(recipeImage);
         } else {

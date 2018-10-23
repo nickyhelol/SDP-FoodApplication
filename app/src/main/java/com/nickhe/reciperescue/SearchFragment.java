@@ -4,23 +4,17 @@ package com.nickhe.reciperescue;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.ToggleButton;
 
 import com.nex3z.flowlayout.FlowLayout;
-
-import java.util.ArrayList;
 
 
 /**
@@ -31,20 +25,17 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
 
     private View searchView;
-    private int recipeMinRatingFilter; //TODO SPRINT 2
-    private ArrayList<String> recipeTagsFilter; //TODO SPRINT 2
     private Button searchButton;
     private Button addIngredientsButton;
     private int numberOfIngredients;
     private SearchView recipeSearchView;
-    private IngredientTokensAdapter ingredientTokensAdapter = new IngredientTokensAdapter(getActivity());
+
     /**
      * The constructor for SearchFragment fragment. Initialises the variables, notably the numberOfIngredients
      * variable to use with the addIngredients method.
      */
     public SearchFragment() {
-        recipeMinRatingFilter = 0;
-        recipeTagsFilter = new ArrayList<>();
+
         numberOfIngredients = 0;
     }
 
@@ -136,7 +127,6 @@ public class SearchFragment extends Fragment {
         recipeIngredientsBundle.putString("Type", "Ingredients");
         FlowLayout layout = searchView.findViewById(R.id.searchFlowLayout);
         for (int i = 0; i < layout.getChildCount(); ++i) {
-//            LinearLayout ingredientLayout = (LinearLayout) layout.getChildAt(i);
             ToggleButton ingredientInput = (ToggleButton) layout.getChildAt(i);
             if (ingredientInput.isChecked()) {
                 ingredients += ingredientInput.getText();
@@ -188,7 +178,6 @@ public class SearchFragment extends Fragment {
     public void addIngredientToList(View view) {
         EditText ingredientText = this.searchView.findViewById(R.id.recipeIngredientsFilterInput1);
         String buttonText = ingredientText.getText().toString();
-//        ingredientTokensAdapter.addToken(buttonText);
         ToggleButton ingredientToken = new ToggleButton(getActivity());
         FlowLayout flowLayout = this.searchView.findViewById(R.id.searchFlowLayout);
         ingredientToken.setId(numberOfIngredients);
@@ -198,14 +187,9 @@ public class SearchFragment extends Fragment {
         ingredientToken.setBackgroundResource(R.drawable.token_states);
         ingredientToken.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         ingredientToken.setGravity(Gravity.CENTER);
-        ingredientToken.setPadding(5,5,5,5);
+        ingredientToken.setPadding(5, 5, 5, 5);
         ingredientToken.setMaxHeight(10);
         flowLayout.addView(ingredientToken);
         ++numberOfIngredients;
     }
-
-    /**
-     * TODO Add rating filter - Sprint 2
-     * TODO Add tags filter - Sprint 2
-     */
 }

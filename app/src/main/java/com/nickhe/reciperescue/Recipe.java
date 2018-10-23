@@ -1,29 +1,35 @@
 package com.nickhe.reciperescue;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 /**
  * Recipe object to use in the program, should be able to be stored in the database.
  * <p>
  * The ideal recipe object should contain the following attributes:
- * a. id - For identification purposes, e.g. viewing a recipe
- * b. recipeTitle - The name of the recipe
- * c. recipeIngredients - The list of ingredients used by the recipe
- * d. recipePublisher - The user that published the recipe
- * e. time - The cooking time of the recipe
- * f. calories - The amount of calories of the recipe
- * g. recipeInstruction - The list of instructions for the recipe
- * h. recipeRating - The rating of the recipe
- * i. recipeImage - The image of the recipe
+ * a. recipeTitle - The name of the recipe
+ * b. recipeIngredients - The list of ingredients used by the recipe
+ * c. recipePublisher - The user that published the recipe
+ * d. time - The cooking time of the recipe
+ * e. calories - The amount of calories of the recipe
+ * f. recipeInstruction - The list of instructions for the recipe
+ * g. recipeRating - The rating of the recipe
+ * h. recipeImageUri - The link to the image of the recipe
  */
 public class Recipe implements Parcelable {
 
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
     private String recipeTitle;
     private String[] recipeIngredients;
     private String recipePublisher;
@@ -46,8 +52,8 @@ public class Recipe implements Parcelable {
         this.recipePublisher = recipePublisher;
     }
 
-    public Recipe(String recipeTitle,String[] recipeIngredients,
-                  String time, String calories, String[] recipeInstruction){
+    public Recipe(String recipeTitle, String[] recipeIngredients,
+                  String time, String calories, String[] recipeInstruction) {
         this.recipeTitle = recipeTitle;
         this.recipeIngredients = recipeIngredients;
         this.time = time;
@@ -55,6 +61,7 @@ public class Recipe implements Parcelable {
         this.recipeInstruction = recipeInstruction;
         this.recipeRating = Rating.THREE;
     }
+
     /**
      * Proper constructor for the recipe object, contains all the required fields for the recipe.
      * Should be used in all cases.
@@ -65,7 +72,7 @@ public class Recipe implements Parcelable {
      * @param time              time required for cooking
      * @param calories          calories contained
      * @param recipeInstruction instructions for cooking
-     * @param recipeImageUri       image of the recipe
+     * @param recipeImageUri    image of the recipe
      */
     public Recipe(String recipeTitle, String[] recipeIngredients, String recipePublisher, String time, String calories, String[] recipeInstruction, Uri recipeImageUri) {
         this.recipeTitle = recipeTitle;
@@ -99,18 +106,6 @@ public class Recipe implements Parcelable {
         recipeRating = Rating.valueOf(in.readString());
         recipeImageUri = in.readParcelable(Uri.class.getClassLoader());
     }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 
     @Override
     public int describeContents() {

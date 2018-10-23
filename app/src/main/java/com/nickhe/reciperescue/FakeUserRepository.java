@@ -1,9 +1,6 @@
 package com.nickhe.reciperescue;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import java.util.ArrayList;
@@ -13,13 +10,12 @@ public class FakeUserRepository {
 
     //Singleton fake repository
     private static FakeUserRepository fakeUserRepository;
-    private List<User> fakeRepo;
     Activity context;
     int[] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3, R.drawable.food4
             , R.drawable.food5, R.drawable.food6, R.drawable.food7, R.drawable.food8};
+    private List<User> fakeRepo;
 
-    public FakeUserRepository(Activity context)
-    {
+    public FakeUserRepository(Activity context) {
         fakeRepo = new ArrayList<>();
         this.context = context;
         initializeRepo();
@@ -32,8 +28,7 @@ public class FakeUserRepository {
      * @param context
      * @return
      */
-    public static synchronized FakeUserRepository getFakeUserRepository(Activity context)
-    {
+    public static synchronized FakeUserRepository getFakeUserRepository(Activity context) {
         if (fakeUserRepository == null) {
             fakeUserRepository = new FakeUserRepository(context);
         }
@@ -45,14 +40,14 @@ public class FakeUserRepository {
      * Update the FakeRecipeRepository
      */
     public void initializeRepo() {
-        Uri food1 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[0]);
-        Uri food2 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[1]);
-        Uri food3 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[2]);
-        Uri food4 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[3]);
-        Uri food5 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[4]);
-        Uri food6 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[5]);
-        Uri food7 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[6]);
-        Uri food8 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/"+images[7]);
+        Uri food1 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[0]);
+        Uri food2 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[1]);
+        Uri food3 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[2]);
+        Uri food4 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[3]);
+        Uri food5 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[4]);
+        Uri food6 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[5]);
+        Uri food7 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[6]);
+        Uri food8 = Uri.parse("android.resource://com.nickhe.reciperescue/drawable/" + images[7]);
 
         User u1 = new User("User 1", 10000, food8);
         User u2 = new User("User 2", 9500, food7);

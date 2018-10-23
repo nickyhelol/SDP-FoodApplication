@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaExtractor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,13 +15,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -33,47 +28,61 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
 
+    private static int CHOOSE_IMAGE = 123;
+    public final int READ_IMAGE_PERMISSION = 0;
+    public final int PICK_IMAGE_RESULT = 1;
     TextView updateButton;
     ImageView profileImageView;
     ListView listView;
     TextView name;
     FakeRecipeRepository fakeRecipeRepository;
-    public final int READ_IMAGE_PERMISSION = 0;
-    public final int PICK_IMAGE_RESULT = 1;
     FirebaseAuth firebaseAuth;
     StorageReference storageReference;
-
-    private FirebaseStorage firebaseStorage;
-    private static int CHOOSE_IMAGE = 123;
     Uri profilePicPath;
-
-    private FirebaseDatabase firebaseDatabase;
-
     RecyclerView re;
     View v;
+    private FirebaseStorage firebaseStorage;
+    private FirebaseDatabase firebaseDatabase;
 
 
     public ProfileFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Make sure the listView will be set by the correct height based on
+     * the number of the items it has.
+     *
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
     @Override
@@ -104,10 +113,10 @@ public class ProfileFragment extends Fragment {
         listView.setAdapter(recipeListAdapter);
 
         //setListViewHeightBasedOnChildren(listView);
-        firebaseAuth= FirebaseAuth.getInstance();
-        firebaseStorage= FirebaseStorage.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
 
-        storageReference= firebaseStorage.getReference();
+        storageReference = firebaseStorage.getReference();
 //        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 
         StorageReference storageReference1 = firebaseStorage.getReference();
@@ -115,7 +124,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).fit().centerCrop().into(profileImageView);
-               // Glide.with(getContext()).load(upload.getUrl()).into(holder.imageView);
+                // Glide.with(getContext()).load(upload.getUrl()).into(holder.imageView);
                 //Picasso.get().load(uri.toString()).into(profileImageView);
             }
         });
@@ -168,19 +177,15 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
-
     public void updateViews() {
         System.out.println(UserDataManager.getUser().getName());
         name.setText(UserDataManager.getUser().getName().toString());
     }
 
     /**
-     *
      * @param recipe
      */
-    private void startRecipeViewActivity(Recipe recipe)
-    {
+    private void startRecipeViewActivity(Recipe recipe) {
         Intent i = new Intent(getActivity().getBaseContext(), RecipeViewActivity.class);
         i.putExtra("recipe", recipe);
         startActivity(i);
@@ -220,34 +225,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
-    /**
-     * Make sure the listView will be set by the correct height based on
-     * the number of the items it has.
-     *
-     * @param listView
-     */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
-
     /**
      * This method creates the database reference per user and sends it to the firebase database.
      */
@@ -284,14 +261,6 @@ public class ProfileFragment extends Fragment {
     }
 
 }
-
-
-
-
-
-
-
-
 
 
 //    /**

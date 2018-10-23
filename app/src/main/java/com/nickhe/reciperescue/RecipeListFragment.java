@@ -10,16 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class RecipeListFragment extends Fragment {
-    private RecipeListAdapterFilterable recipeListAdapterFilterable;
-//    private RecipeFirestoreRecyclerAdapter recipeFirestoreRecyclerAdapter;
+//import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+/**
+ * RecipeListFragment class to show the results of the searching method.
+ * Uses the filterable adapter to retrieve and display the results.
+ */
+public class RecipeListFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Query query = db.collection("recipes");
+    private RecipeListAdapterFilterable recipeListAdapterFilterable;
 
     public RecipeListFragment() {
         // Required empty public constructor
@@ -29,15 +32,9 @@ public class RecipeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle searchBundle = getArguments();
-
         recipeListAdapterFilterable = new RecipeListAdapterFilterable(getActivity(), FakeRecipeRepository.getFakeRecipeRepository(getActivity()).getFakeRepo());
 
         if (searchBundle.getString("Type").equals("RecipeName")) {
-//            query.whereEqualTo("recipeTitle", searchBundle.getString("Name"));
-//            FirestoreRecyclerOptions<Recipe> response = new FirestoreRecyclerOptions.Builder<Recipe>()
-//                    .setQuery(query, Recipe.class)
-//                    .build();
-//            recipeFirestoreRecyclerAdapter = new RecipeFirestoreRecyclerAdapter(response);
             recipeListAdapterFilterable.getNameFilter().filter(searchBundle.getString("Name"));
         } else if (searchBundle.getString("Type").equals("Ingredients")) {
             recipeListAdapterFilterable.getRecipeIngredientsFilter().filter(searchBundle.getString("Ingredients"));

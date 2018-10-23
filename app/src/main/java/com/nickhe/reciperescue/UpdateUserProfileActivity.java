@@ -1,8 +1,8 @@
 package com.nickhe.reciperescue;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 /**
  * This activity is intended to provide facility to user so as to update their profile, name, age, email
- *
- * TODO adding user image to database
- * */
+ */
 public class UpdateUserProfileActivity extends AppCompatActivity {
 
     private EditText updateName, updateEmail, updateAge;
