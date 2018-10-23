@@ -36,7 +36,6 @@ public class RecipeListAdapterFilterableTest {
     @Before
     public void setUp() throws Exception {
         r1 = new Recipe(
-                0,
                 "Chicken And Lemon Kebabs",
                 new String[]{
                         "460 grams chicken thigh fillets",
@@ -63,7 +62,6 @@ public class RecipeListAdapterFilterableTest {
         );
 
         r2 = new Recipe(
-                1,
                 "Asian Chicken Salad With Ginger Sesame Dressing",
                 new String[]{
                         "1/4 cup rice wine vinegar",
