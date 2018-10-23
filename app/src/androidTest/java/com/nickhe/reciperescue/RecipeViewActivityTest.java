@@ -17,7 +17,6 @@ public class RecipeViewActivityTest {
 
         //Setting up a generic valid recipe
         validRecipe = new Recipe(
-                1,
                 "Asian Chicken Salad With Ginger Sesame Dressing",
                 new String[]{
                         "1/4 cup rice wine vinegar",
@@ -47,7 +46,6 @@ public class RecipeViewActivityTest {
 
         //Setting up an empty recipe
         emptyRecipe = new Recipe(
-                3001,
                 "",
                 new String[]{"", ""},
                 "",
