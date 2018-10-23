@@ -105,7 +105,7 @@ public class ProfileFragment extends Fragment {
         }
 
         name = view.findViewById(R.id.nameEditText);
-        updateButton = view.findViewById(R.id.updateButton);
+        updateTextView = view.findViewById(R.id.updateTextView);
         profileImageView = view.findViewById(R.id.profileImageView);
         listView = view.findViewById(R.id.profile_recipeList);
         fakeRecipeRepository = FakeRecipeRepository.getFakeRecipeRepository(getActivity());
@@ -124,8 +124,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).fit().centerCrop().into(profileImageView);
-                // Glide.with(getContext()).load(upload.getUrl()).into(holder.imageView);
-                //Picasso.get().load(uri.toString()).into(profileImageView);
             }
         });
 
@@ -148,7 +146,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        updateButton.setOnClickListener(new View.OnClickListener() {
+        updateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendUserDataToDatabase();
@@ -179,7 +177,7 @@ public class ProfileFragment extends Fragment {
 
     public void updateViews() {
         System.out.println(UserDataManager.getUser().getName());
-        name.setText(UserDataManager.getUser().getName().toString());
+        name.setText(UserDataManager.getUser().getName());
     }
 
     /**
