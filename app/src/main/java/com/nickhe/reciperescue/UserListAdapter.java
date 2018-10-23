@@ -38,25 +38,22 @@ public class UserListAdapter extends ArrayAdapter<User> {
         }
     }
 
-    public List<User> getRecipes() {
-        return users;
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View row = convertView;
-        ViewHolder viewHolder = null;
+        UserListAdapter.ViewHolder viewHolder = null;
 
         if (row == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
             row = layoutInflater.inflate(R.layout.user_row, parent, false);
-            viewHolder = new ViewHolder(row);
+            viewHolder = new UserListAdapter.ViewHolder(row);
             row.setTag(viewHolder);
         } else {
-
+            viewHolder = (UserListAdapter.ViewHolder) row.getTag();
         }
+
 
         if (position == 2) {
             viewHolder.medalIamgeView.setImageResource(R.drawable.medal3);
@@ -88,6 +85,7 @@ public class UserListAdapter extends ArrayAdapter<User> {
             userNametextView = view.findViewById(R.id.userNameTextView);
             scoreTextView = view.findViewById(R.id.scoreTextView);
             medalIamgeView = view.findViewById(R.id.medalImageView);
+            System.out.println("Medal!");
         }
     }
 }

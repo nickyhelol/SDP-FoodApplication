@@ -24,8 +24,7 @@ public class FakeUserRepository {
         User u5 = new User("Carl", 60);
         User u6 = new User("Johnny", 75);
         User u7 = new User("Leon", 40);
-        User u8 = new User("Nick", 30);
-        User u9 = new User("Micheal", 60);
+        User u8 = new User("Micheal", 60);
 
         fakeUserRepo.add(u1);
         fakeUserRepo.add(u2);
@@ -35,7 +34,6 @@ public class FakeUserRepository {
         fakeUserRepo.add(u6);
         fakeUserRepo.add(u7);
         fakeUserRepo.add(u8);
-        fakeUserRepo.add(u9);
     }
 
     public static synchronized FakeUserRepository getFakeUserRepository(){
